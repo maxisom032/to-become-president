@@ -1,0 +1,15 @@
+config_version=5
+
+[application]
+config/name="To Become President — Workplaces"
+run/main_scene="res://game/offices/workplace.tscn"
+config/features=PackedStringArray("4.7", "GL Compatibility")
+
+[display]
+window/size/viewport_width=414
+window/size/viewport_height=780
+window/stretch/mode="canvas_items"
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

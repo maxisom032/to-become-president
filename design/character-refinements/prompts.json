@@ -1,0 +1,22 @@
+{
+  "reference": "C:\\Users\\Marcbv\\AppData\\Local\\Temp\\codex-clipboard-482e05ee-1242-4b75-a7d7-626ddcc5861e.png",
+  "base": "Use case: stylized-concept. Create a VERY CLOSE stylistic variant of the attached original character illustration. It is the reference for this request. Keep the same THREE fictional characters, identities, clothes, left-center-right order, waist-up framing, approximate expressions and poses, warm ivory background, restrained muted teal/burgundy/navy/ochre palette, angular editorial caricature anatomy and elegant sophisticated political-satire mood. Left curly dark-bob woman with round amber glasses, teal blazer and notebook, center swept-silver-haired narrow long-nosed man in burgundy suit mustard tie with steepled fingers, right dark-skinned broad-jawed man with short dark hair navy jacket white open collar crossed arms. Do not swap cast, redesign their outfits, add people or change the art direction radically. Landscape image, big readable faces, adequate breathing room. No text, no logos, no watermark, no background scene. FLAT 2D printed illustration, not 3D, not plastic, not clay, not photorealistic. Only the following SMALL art treatment adjustment:",
+  "variants": [
+    {
+      "title": "Персонажи 1 — Чуть выразительнее",
+      "style": "Make angular eyebrows, nose planes and smiles a little more expressive, with sharper dry-brush edge accents and slightly stronger angular shadow shapes. Preserve the reference's attractive proportions and understated mood. Light fine paper grain, same color saturation."
+    },
+    {
+      "title": "Персонажи 2 — Мягче и чище",
+      "style": "Soften only the harshest shadow edges and slightly reduce exaggeration, with cleaner fine dark linework near eyes and mouths. Simplify clothing texture slightly, keep large flat printed color areas, warm subtle grain and the same lively faces. Gentle balanced expressions, not generic animation."
+    },
+    {
+      "title": "Персонажи 3 — Плоская печатная графика",
+      "style": "Simplify shadows to two tones per form and make broad flat cut-color shapes more prominent. Sparse fine ink facial detail. Even restrained risograph-like pigment texture, tiny occasional ink-edge misregistration, not strong noisy grunge. Preserve recognizable angular heads and nuanced expressions."
+    },
+    {
+      "title": "Персонажи 4 — Тушь и сухая кисть",
+      "style": "Add selective elegant hand-inked contour with varied line weight, especially hair and jackets, plus subtle dry-gouache brush texture. Slightly more hand-drawn liveliness than the reference while keeping precisely its palette, caricature proportions, overall shapes and polished finish. Not watercolor splashes or sketchy unfinished art."
+    }
+  ]
+}
