@@ -53,6 +53,7 @@ var interaction_pending := false
 var transition_speed := 1.0
 var career_rooms: Array[Node3D] = []
 var career_level := 0
+var career_doors: Array[Node3D] = []
 
 func _ready() -> void:
 	mouse_filter = MOUSE_FILTER_IGNORE
@@ -207,8 +208,9 @@ func set_active(id: String, playable: bool) -> void:
 			attention.tween_property(marker, "modulate:a", 0.62, 0.65)
 			attention.tween_property(marker, "modulate:a", 1.0, 0.65)
 		button.add_theme_stylebox_override("focus", plaque_style(Color.TRANSPARENT, CREAM))
-		var sign: Label3D = plaques[key]
-		sign.visible = not playable
+		if plaques.has(key):
+			var sign: Label3D = plaques[key]
+			sign.visible = not playable
 	refresh_room()
 
 func build_phone_signal(button: Button) -> void:
@@ -252,7 +254,7 @@ func set_rank(level: int) -> void:
 	door_inset_material.set_shader_parameter("tint", Color(panels[rank]))
 	carpet_material.set_shader_parameter("tint", Color(carpets[rank]))
 	room_environment.ambient_light_color = Color(["#e2e2e0", "#fff2db", "#dae6ff", "#ffded0"][rank])
-	wall_clock.visible = rank < 3
+	if is_instance_valid(wall_clock): wall_clock.visible = true
 	for index in rank_rooms.size():
 		rank_rooms[index].visible = index == rank
 	for decoration in upgrades:
@@ -422,8 +424,6 @@ func build_room() -> void:
 		furnishings.name = "OfficeRank%d" % level
 		room.add_child(furnishings)
 		rank_rooms.append(furnishings)
-	build_clock(wood, brass)
-	build_notice_board(rank_rooms[0], wood, brass)
 	build_rank_details(wood, brass, dark)
 	block(room, Vector3(0, 2.69, -3.02), Vector3(4.26, 0.05, 0.13), trim_material)
 
@@ -465,24 +465,6 @@ func build_room() -> void:
 	build_desk(wood, brass, light, dark)
 	build_career_contrast(wood,brass,dark)
 
-func build_clock(wood: Material, brass: Material) -> void:
-	var clock := Node3D.new()
-	wall_clock = clock
-	room.add_child(clock)
-	clock.position = Vector3(-1.43, 3.0, -3.04)
-	var rim := rod(clock, Vector3.ZERO, 0.20, 0.205, 0.10, wood)
-	rim.rotation.x = PI / 2.0
-	var face := rod(clock, Vector3(0, 0, 0.055), 0.164, 0.166, 0.022, brass)
-	face.rotation.x = PI / 2.0
-	for mark in 12:
-		var angle := mark * TAU / 12.0
-		var tick := block(clock, Vector3(sin(angle) * 0.131, cos(angle) * 0.131, 0.069), Vector3(0.012, 0.021, 0.008), wood)
-		tick.rotation.z = -angle
-	var hour := block(clock, Vector3(-0.024, 0.030, 0.079), Vector3(0.015, 0.075, 0.009), wood)
-	hour.rotation.z = 0.70
-	var minute := block(clock, Vector3(0.054, 0.008, 0.079), Vector3(0.012, 0.111, 0.009), wood)
-	minute.rotation.z = -1.43
-
 func build_pendant(parent: Node3D, x: float, height: float, radius: float, metal: Material, shade: Material, light: Material) -> void:
 	var cord_height := 3.50 - height
 	var cord := rod(parent, Vector3(x, height + cord_height * 0.5, -1.85), 0.018, 0.018, cord_height, metal)
@@ -491,29 +473,6 @@ func build_pendant(parent: Node3D, x: float, height: float, radius: float, metal
 	pendant.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	var bulb := rod(parent, Vector3(x, height - 0.009, -1.85), radius * 0.94, radius * 0.95, 0.018, light)
 	bulb.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-
-func build_notice_board(parent: Node3D, wood: Material, brass: Material) -> void:
-	var board := Node3D.new()
-	parent.add_child(board)
-	board.position = Vector3(1.36, 3.0, -3.02)
-	var cork := surface_material(Color("#8e6040"), 0)
-	block(board, Vector3.ZERO, Vector3(0.87, 0.40, 0.045), wood)
-	block(board, Vector3(0, 0, 0.027), Vector3(0.79, 0.33, 0.022), cork)
-	for side in [-1, 1]:
-		block(board, Vector3(0, side * 0.172, 0.049), Vector3(0.84, 0.024, 0.016), trim_material)
-		block(board, Vector3(side * 0.407, 0, 0.049), Vector3(0.025, 0.36, 0.016), trim_material)
-	var ink := solid(Color("#9a7a59"))
-	var red := solid(Color("#9b4334"))
-	for index in 3:
-		var note := Node3D.new()
-		board.add_child(note)
-		note.position = Vector3((index - 1) * 0.235, 0.012 - (index % 2) * 0.049, 0.047)
-		note.rotation.z = [-0.09, 0.06, -0.04][index]
-		block(note, Vector3.ZERO, Vector3(0.205, 0.21, 0.008), solid(Color("#dbc28e") if index == 1 else Color("#eedab5")))
-		var pin := rod(note, Vector3(0, 0.076, 0.014), 0.013, 0.014, 0.015, red if index == 1 else brass)
-		pin.rotation.x = PI / 2.0
-		for line in 3:
-			block(note, Vector3(-0.007 * line, 0.031 - line * 0.036, 0.006), Vector3(0.13 - line * 0.024, 0.009, 0.003), ink)
 
 func build_door(id: String, x: float, wood: Material, brass: Material) -> void:
 	for side in [-1, 1]:
@@ -535,13 +494,6 @@ func build_door(id: String, x: float, wood: Material, brass: Material) -> void:
 	block(pivot, Vector3(0.93, 0.96, 0.07), Vector3(0.088, 0.17, 0.028), brass)
 	var handle := rod(pivot, Vector3(0.93, 1.00, 0.116), 0.044, 0.055, 0.065, brass)
 	handle.rotation.x = PI / 2.0
-	block(pivot, Vector3(0.54, 1.75, 0.10), Vector3(0.76, 0.26, 0.043), wood)
-	block(pivot, Vector3(0.54, 1.75, 0.126), Vector3(0.70, 0.21, 0.020), brass)
-	var sign := door_sign(pivot, DOOR_NAMES[id], Vector3(0.54, 1.75, 0.139))
-	plaques[id] = sign
-	block(pivot, Vector3(0.54, 1.75, -0.091), Vector3(0.63, 0.19, 0.024), brass)
-	var inside_sign := door_sign(pivot, DOOR_NAMES[id], Vector3(0.54, 1.75, -0.107))
-	inside_sign.rotate_y(PI)
 	var casing := upgrade(room, 1)
 	block(casing, Vector3(x, 2.56, -2.927), Vector3(1.32, 0.074, 0.12), door_inset_material)
 	block(casing, Vector3(x, 2.604, -2.891), Vector3(1.40, 0.026, 0.098), door_material)
@@ -576,7 +528,6 @@ func build_desk(wood: Material, brass: Material, light: Material, dark: Material
 	for level in rank_rooms.size():
 		build_desk_furniture(rank_rooms[level], level, brass, light, dark)
 	light_at(Vector3(-0.81, 1.47, 1.80), Color("#ffd092"), 0.64, 2.0)
-	build_pen_cup(brass, dark)
 	build_desk_accessories(wood, brass, dark)
 	var red := solid(Color("#a33f2d"))
 	var marker := rod(room, Vector3(0.54, 1.087, 2.31), 0.017, 0.017, 0.43, red)
@@ -623,27 +574,7 @@ func build_desk_furniture(parent: Node3D, level: int, brass: Material, light: Ma
 	if level >= 2:
 		for x in [-0.64, 0.0, 0.64]:
 			frame_molding(parent, Vector3(x, 0.852, front - 0.055), Vector2(0.48, 0.109), 0.012, rail)
-	build_rank_lamp(parent, level, brass, light, dark)
 
-func build_rank_lamp(parent: Node3D, level: int, brass: Material, light: Material, dark: Material) -> void:
-	var lamp := Node3D.new()
-	parent.add_child(lamp)
-	lamp.position = Vector3(-0.81, 1.086, 1.77)
-	rod(lamp, Vector3(0, 0.025, 0), 0.164, 0.19, 0.050, brass if level > 0 else dark)
-	rod(lamp, Vector3(0, 0.26, 0), 0.023, 0.034, 0.45, brass)
-	var lacquer := solid(Color(["#9a733a", "#28654b", "#e5c699", "#723b40"][level]), 0.15, 0.51)
-	var shade: MeshInstance3D
-	if level <= 1:
-		shade = dome(lamp, Vector3(0, 0.442, 0), 0.265, 0.17, lacquer)
-	else:
-		shade = rod(lamp, Vector3(0, 0.533, 0), 0.13, 0.248, 0.21, lacquer)
-		rod(lamp, Vector3(0, 0.64, 0), 0.128, 0.134, 0.012, brass)
-	var glow := rod(lamp, Vector3(0, 0.429, 0), 0.245, 0.249, 0.015, light)
-	if level == 1:
-		shade.scale = Vector3(1.22, 0.84, 0.66)
-		glow.scale = Vector3(1.22, 1, 0.66)
-	if level >= 2:
-		cup_rim(lamp, 0.425, 0.247, 0.006, brass)
 
 func build_case_folder(tab_material: Material) -> void:
 	paper = Node3D.new()
@@ -686,45 +617,6 @@ func build_case_folder(tab_material: Material) -> void:
 	paper_cover.add_child(paper_number)
 	paper_number.position = cover_center + Vector3(0, 0.015, -0.054)
 	paper_number.rotation.x = -PI / 2.0
-
-func build_pen_cup(brass: Material, dark: Material) -> void:
-	var cup := Node3D.new()
-	cup.name = "PenCup"
-	room.add_child(cup)
-	cup.position = Vector3(0.70, 1.089, 1.72)
-	var enamel := solid(Color("#244b48"), 0.18, 0.36)
-	var liner := solid(Color("#1c2c2a"), 0.0, 0.58)
-	liner.cull_mode = BaseMaterial3D.CULL_FRONT
-	rod(cup, Vector3(0, 0.021, 0), 0.124, 0.14, 0.042, dark)
-	rod(cup, Vector3(0, 0.039, 0), 0.127, 0.131, 0.017, brass)
-	rod(cup, Vector3(0, 0.063, 0), 0.117, 0.118, 0.017, dark)
-	open_cylinder(cup, Vector3(0, 0.193, 0), 0.155, 0.125, 0.303, enamel)
-	open_cylinder(cup, Vector3(0, 0.195, 0), 0.145, 0.114, 0.302, liner)
-	cup_rim(cup, 0.344, 0.156, 0.009, brass)
-	cup_rim(cup, 0.302, 0.151, 0.0025, brass)
-	var medallion := rod(cup, Vector3(0, 0.19, 0.141), 0.050, 0.053, 0.014, brass)
-	medallion.rotation.x = PI / 2.0
-	var insert := rod(cup, Vector3(0, 0.19, 0.151), 0.041, 0.041, 0.009, enamel)
-	insert.rotation.x = PI / 2.0
-	var mark := block(cup, Vector3(0, 0.19, 0.159), Vector3(0.033, 0.033, 0.006), brass)
-	mark.rotation.z = PI / 4.0
-
-	var pens := [
-		[Vector3(-0.046, 0.065, 0.018), Vector3(-8, 22, 14), 0.47, "#893c33"],
-		[Vector3(0.036, 0.067, -0.022), Vector3(-12, -24, -12), 0.52, "#304b68"],
-		[Vector3(0.022, 0.065, 0.042), Vector3(12, 18, -7), 0.43, "#b79568"],
-	]
-	for spec in pens:
-		var pen := make_pen(cup, spec[2], solid(Color(spec[3]), 0.12, 0.32), brass, dark)
-		pen.position = spec[0]
-		pen.rotation_degrees = spec[1]
-	var cedar := solid(Color("#e8be82"))
-	var pencil := make_pencil(cup, 0.51, solid(Color("#d9a144")), cedar, dark)
-	pencil.position = Vector3(-0.013, 0.064, -0.055)
-	pencil.rotation_degrees = Vector3(-9, 0, 2)
-	var spare := make_pencil(cup, 0.44, solid(Color("#b85d4a")), cedar, dark)
-	spare.position = Vector3(0.052, 0.064, 0.016)
-	spare.rotation_degrees = Vector3(8, 16, -12)
 
 func open_cylinder(parent: Node3D, at: Vector3, top: float, bottom: float, height: float, material: Material) -> void:
 	var shell := CylinderMesh.new()
@@ -799,14 +691,8 @@ func build_desk_accessories(wood: Material, brass: Material, dark: Material) -> 
 
 func build_rank_details(wood: Material, brass: Material, dark: Material) -> void:
 	var starter := rank_rooms[0]
-	build_desk_phone(starter, brass, dark)
-	var calendar := Vector3(-0.67, 2.94, -3.02)
-	block(starter, calendar, Vector3(0.19, 0.24, 0.025), solid(Color("#dfc9a0")))
-	block(starter, calendar + Vector3(0, 0.094, 0.017), Vector3(0.19, 0.045, 0.012), solid(Color("#824332")))
-	door_sign(starter, "ПН", calendar + Vector3(0, -0.01, 0.015)).pixel_size = 0.00142
 
 	var coordinator := rank_rooms[1]
-	build_desk_phone(coordinator, brass, solid(Color("#30594e"), 0.14, 0.42))
 	build_district_map(coordinator, wood, brass)
 	build_mail_tray(coordinator, brass)
 
@@ -819,8 +705,6 @@ func build_rank_details(wood: Material, brass: Material, dark: Material) -> void
 	build_wall_sconce(paneling, 1.04, brass)
 
 	var council := rank_rooms[2]
-	build_wall_crest(council, brass, Color("#2e5367"))
-	build_desk_phone(council, brass, dark)
 	var council_plate := Vector3(1.56, 2.94, -3.02)
 	block(council, council_plate, Vector3(0.60, 0.23, 0.031), wood)
 	frame_molding(council, council_plate + Vector3(0, 0, 0.023), Vector2(0.55, 0.18), 0.008, brass)
@@ -829,15 +713,8 @@ func build_rank_details(wood: Material, brass: Material, dark: Material) -> void
 	caption.pixel_size = 0.00092
 
 	var campaign_hq := rank_rooms[3]
-	build_wall_crest(campaign_hq, brass, Color("#732f39"))
 	for side in [-1.0, 1.0]:
 		build_banner(campaign_hq, side * 1.53, brass, side > 0)
-	var stand := Vector3(-0.17, 1.128, 2.68)
-	block(campaign_hq, stand, Vector3(0.46, 0.085, 0.10), door_material)
-	block(campaign_hq, stand + Vector3(0, 0.01, 0.053), Vector3(0.40, 0.057, 0.012), brass)
-	var plate := door_sign(campaign_hq, "РАБОЧИЙ СТОЛ", stand + Vector3(0, 0.01, 0.062))
-	plate.pixel_size = 0.00070
-	build_desk_phone(campaign_hq, brass, solid(Color("#672f35"), 0.17, 0.39))
 
 func build_district_map(parent: Node3D, wood: Material, brass: Material) -> void:
 	var center := Vector3(1.38, 2.95, -3.02)
@@ -894,21 +771,6 @@ func build_banner(parent: Node3D, x: float, brass: Material, blue: bool) -> void
 	emblem.rotation.z = PI / 4.0
 	var field := block(parent, Vector3(x, 2.95, -2.939), Vector3(0.096, 0.096, 0.005), cloth)
 	field.rotation.z = PI / 4.0
-
-func build_desk_phone(parent: Node3D, brass: Material, housing: Material) -> void:
-	var phone := Node3D.new()
-	parent.add_child(phone)
-	phone.position = PHONE_POSITION
-	phone.rotation.y = -0.18
-	block(phone, Vector3(0, 0.035, 0), Vector3(0.33, 0.07, 0.29), housing)
-	var dial := Vector3(0, 0.073, 0.035)
-	rod(phone, dial, 0.085, 0.09, 0.017, brass)
-	for hole in 8:
-		var angle := hole * TAU / 8.0
-		rod(phone, dial + Vector3(sin(angle) * 0.062, 0.011, cos(angle) * 0.062), 0.011, 0.011, 0.006, housing)
-	block(phone, Vector3(0, 0.089, -0.092), Vector3(0.27, 0.045, 0.047), housing)
-	for side in [-1.0, 1.0]:
-		rod(phone, Vector3(side * 0.115, 0.092, -0.088), 0.049, 0.044, 0.068, housing)
 
 func surface_material(tint: Color, finish: int) -> ShaderMaterial:
 	var material := ShaderMaterial.new()
@@ -981,41 +843,49 @@ func set_career_level(level: int) -> void:
 		wall_material.set_shader_parameter("wallpaper",0)
 	elif career_level==5:
 		wall_material.set_shader_parameter("tint",Color("#64333c"))
-	wall_clock.visible=career_level<3
+	wall_clock=career_rooms[career_level].get_node("CareerClock")
+	wall_clock.visible=true
+	for i in career_doors.size():
+		career_doors[i].visible=i==career_level
 	for i in career_rooms.size():
 		career_rooms[i].visible=i==career_level
 	set_active("",true)
 	refresh_room()
 
 func build_career_contrast(wood: Material, brass: Material, dark: Material) -> void:
+	var props = preload("res://game/friend_offices/career_props.gd").new(self)
 	for level in 6:
 		var root := Node3D.new()
 		root.name="CareerDressing%d" % level
 		root.visible=level==0
 		room.add_child(root)
 		career_rooms.append(root)
+		props.build(root,level)
+		if level==0: wall_clock=root.get_node("CareerClock")
 		match level:
 			0:
+				framed_art(root,Vector3(1.64,1.96,-3.0),Vector2(0.62,0.47),wood,dark,2)
 				for x in [-1.45,1.45]:
 					modest_workplace(root,Vector3(x,0,-1.65),wood,dark)
 					for i in 2:
 						block(root,Vector3(x+0.5,0.17+i*0.31,-2.7),Vector3(0.42,0.3,0.36),surface_material(Color("#967b53"),0))
 			1:
+				framed_art(root,Vector3(1.65,2.09,-3.0),Vector2(0.65,0.52),wood,brass,3)
 				modest_workplace(root,Vector3(-1.75,0,-1.9),wood,dark)
 				drawer_chest(root,Vector3(1.45,0,-2.7),1.1,1.45,wood,brass)
 			2:
 				drawer_chest(root,Vector3(-1.45,0,-2.7),1.15,1.05,wood,brass)
-				framed_art(root,Vector3(-1.45,1.98,-3.0),Vector2(1.0,0.7),wood,brass,0)
+				framed_art(root,Vector3(-1.45,1.98,-3.0),Vector2(1.0,0.7),wood,brass,4)
 				drawer_chest(root,Vector3(1.45,0,-2.7),1.15,1.05,wood,brass)
 				framed_art(root,Vector3(1.45,1.98,-3.0),Vector2(0.85,0.7),wood,brass,1)
 			3:
 				bookcase_career(root,Vector3(-1.6,0,-2.83),1.05,wood,brass)
 				drawer_chest(root,Vector3(1.45,0,-2.7),1.15,0.8,wood,brass)
-				framed_art(root,Vector3(1.45,1.8,-3.0),Vector2(1.04,1.1),wood,brass,0)
+				framed_art(root,Vector3(1.45,1.8,-3.0),Vector2(1.04,1.1),wood,brass,5)
 			4:
 				for x in [-1.47,1.47]:
 					drawer_chest(root,Vector3(x,0,-2.75),1.15,0.82,wood,brass)
-					framed_art(root,Vector3(x,1.85,-3.0),Vector2(1.07,1.25),wood,brass,1 if x<0 else 0)
+					framed_art(root,Vector3(x,1.85,-3.0),Vector2(1.07,1.25),wood,brass,1 if x<0 else 6)
 				for x in [-2.12,2.12]:
 					block(root,Vector3(x,1.3,-2.98),Vector3(0.15,2.6,0.12),wood)
 					for dx in [-0.04,0.04]:
@@ -1023,7 +893,7 @@ func build_career_contrast(wood: Material, brass: Material, dark: Material) -> v
 			5:
 				for x in [-1.47,1.47]:
 					drawer_chest(root,Vector3(x,0,-2.75),1.25,0.78,door_material,brass)
-					framed_art(root,Vector3(x,1.88,-2.96),Vector2(1.12,1.32),door_material,brass,0 if x<0 else 1)
+					framed_art(root,Vector3(x,1.88,-2.96),Vector2(1.12,1.32),door_material,brass,7 if x<0 else 1)
 				for x in [-2.2,-0.78,0.78,2.2]:
 					block(root,Vector3(x,1.34,-2.94),Vector3(0.085,2.64,0.12),brass)
 					block(root,Vector3(x,1.34,-2.86),Vector3(0.042,2.49,0.035),door_inset_material)
@@ -1068,14 +938,16 @@ func bookcase_career(parent: Node3D, at: Vector3, width: float, wood: Material, 
 				block(parent,at+Vector3(x,y+0.20+dy,0.242),Vector3(width*0.12,0.008,0.009),brass)
 
 func framed_art(parent: Node3D, at: Vector3, dimensions: Vector2, wood: Material, brass: Material, type: int) -> void:
+	if type>=5:
+		frame_molding(parent,at+Vector3(0,0,0.042),dimensions+Vector2(0.16,0.16),0.027,brass)
 	block(parent,at,Vector3(dimensions.x+0.12,dimensions.y+0.12,0.085),wood)
 	frame_molding(parent,at+Vector3(0,0,0.055),dimensions+Vector2(0.04,0.04),0.018,brass)
 	block(parent,at+Vector3(0,0,0.052),Vector3(dimensions.x,dimensions.y,0.018),solid(Color("#c6b78e")))
-	if type==0:
+	if type!=1:
 		var quad := QuadMesh.new()
 		quad.size=dimensions*0.88
 		var mat := StandardMaterial3D.new()
-		var image: Texture2D = preload("res://game/offices/assets/views/american-06.png")
+		var image: Texture2D = load("res://game/offices/assets/views/american-%02d.png" % clampi(type-1,1,6))
 		mat.albedo_texture=image
 		mat.albedo_color=Color(0.72,0.68,0.60)
 		var source_ratio := float(image.get_width())/image.get_height()

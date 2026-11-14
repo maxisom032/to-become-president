@@ -34,9 +34,14 @@ func run() -> void:
 		var current: Node3D = stage.career_rooms[rank_value]
 		signatures[str(current.get_child_count())+str(rank_value)]=true
 		check(current.get_child_count()>0,"Empty career dressing")
-		check(stage.wall_clock.visible==(rank_value<3),"Clock should stay in uncluttered early offices")
+		check(stage.wall_clock.is_visible_in_tree(),"Clock must be visible at every career rank")
 		check(stage.wall_clock.position.y-0.205>2.715,"Clock overlaps horizontal molding")
 		check(stage.wall_clock.position.y+0.205<3.26,"Clock overlaps top molding")
+		for item in ["CareerLamp","CareerPhone","CareerPenCup"]:
+			check(current.has_node(item),"Missing per-rank furnishing: "+item)
+		check(current.has_node("WallCalendar")== (rank_value<2),"Calendar belongs in first two offices")
+		if rank_value<2:
+			check(current.get_node("WallNoticeBoard").position.y<2.3,"Notice board must be below the high wall band")
 		check(stage.view.size.x>=414,"Room is rendered below native resolution")
 		ui.open_item("paper")
 		await create_timer(0.7).timeout
