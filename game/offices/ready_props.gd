@@ -1,7 +1,8 @@
 extends RefCounted
 
 static func place(room: Node3D, id: String, at: Vector3, height: float, angle: float=0.0) -> Node3D:
-	var scene: PackedScene = load("res://game/offices/assets/kenney/"+id+".glb")
+	var external := id.begins_with("polyhaven-")
+	var scene: PackedScene = load("res://game/offices/assets/polyhaven/"+id.trim_prefix("polyhaven-")+".gltf" if external else "res://game/offices/assets/kenney/"+id+".glb")
 	var root := Node3D.new()
 	room.add_child(root)
 	var model: Node3D = scene.instantiate()
@@ -11,7 +12,7 @@ static func place(room: Node3D, id: String, at: Vector3, height: float, angle: f
 	for node in model.find_children("*","MeshInstance3D",true,false):
 		for surface_index in node.mesh.get_surface_count():
 			var original: Material = node.mesh.surface_get_material(surface_index)
-			if original == null:
+			if original == null or external:
 				continue
 			var key := original.resource_name.to_lower()
 			var replacement: Material = room.material("#8e6c4d",0)

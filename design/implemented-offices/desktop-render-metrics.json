@@ -1,0 +1,59 @@
+{
+	"platform": "Windows Vulkan Forward+, RTX3060Ti, not physical mobile",
+	"results": [
+		{
+			"baked_room": true,
+			"draw_calls_all_viewports": 98,
+			"median_frame_ms_windows": 6.056,
+			"rank": 1,
+			"scene_pixels": "(1080, 1714)",
+			"texture_memory_bytes": 342618112,
+			"triangles_all_viewports": 76188
+		},
+		{
+			"baked_room": true,
+			"draw_calls_all_viewports": 98,
+			"median_frame_ms_windows": 6.037,
+			"rank": 2,
+			"scene_pixels": "(1080, 1714)",
+			"texture_memory_bytes": 342618112,
+			"triangles_all_viewports": 72502
+		},
+		{
+			"baked_room": true,
+			"draw_calls_all_viewports": 102,
+			"median_frame_ms_windows": 6.042,
+			"rank": 3,
+			"scene_pixels": "(1080, 1714)",
+			"texture_memory_bytes": 342618112,
+			"triangles_all_viewports": 131808
+		},
+		{
+			"baked_room": true,
+			"draw_calls_all_viewports": 104,
+			"median_frame_ms_windows": 6.056,
+			"rank": 4,
+			"scene_pixels": "(1080, 1714)",
+			"texture_memory_bytes": 342618112,
+			"triangles_all_viewports": 95890
+		},
+		{
+			"baked_room": true,
+			"draw_calls_all_viewports": 105,
+			"median_frame_ms_windows": 6.026,
+			"rank": 5,
+			"scene_pixels": "(1080, 1714)",
+			"texture_memory_bytes": 345864192,
+			"triangles_all_viewports": 141030
+		},
+		{
+			"baked_room": true,
+			"draw_calls_all_viewports": 105,
+			"median_frame_ms_windows": 6.047,
+			"rank": 6,
+			"scene_pixels": "(1080, 1714)",
+			"texture_memory_bytes": 345864192,
+			"triangles_all_viewports": 121656
+		}
+	]
+}

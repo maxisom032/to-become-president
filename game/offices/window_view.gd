@@ -1,12 +1,12 @@
 extends Node3D
 
 const VIEWS := [
-	preload("res://game/offices/assets/views/american-01.png"),
-	preload("res://game/offices/assets/views/american-02.png"),
-	preload("res://game/offices/assets/views/american-03.png"),
-	preload("res://game/offices/assets/views/american-04.png"),
-	preload("res://game/offices/assets/views/american-05.png"),
-	preload("res://game/offices/assets/views/american-06.png"),
+	"res://game/offices/assets/views/american-01.png",
+	"res://game/offices/assets/views/american-02.png",
+	"res://game/offices/assets/views/american-03.png",
+	"res://game/offices/assets/views/american-04.png",
+	"res://game/offices/assets/views/american-05.png",
+	"res://game/offices/assets/views/american-06.png",
 ]
 var width := 2.0
 var height := 1.8
@@ -15,7 +15,7 @@ var view_path := ""
 func setup(owner_room: Node3D, dimensions: Vector2) -> void:
 	width = dimensions.x
 	height = dimensions.y
-	var texture: Texture2D = VIEWS[owner_room.room_index]
+	var texture: Texture2D = load(VIEWS[owner_room.room_index])
 	view_path = texture.resource_path
 	var mesh := QuadMesh.new()
 	mesh.size = dimensions

@@ -19,7 +19,7 @@ void fragment(){
 	float value = dot(sample_color,vec3(0.2126,0.7152,0.0722));
 	if(surface_kind == 1 || surface_kind == 2){
 		float grain = clamp(value / 0.125,0.35,2.3);
-		ALBEDO = tint.rgb * mix(1.0,grain,0.85);
+		ALBEDO = tint.rgb * mix(1.0,grain,0.38);
 		if(surface_kind == 2 && n.y > 0.65){
 			float board = floor(p.x * 3.5);
 			float seam = smoothstep(0.0,0.012,min(fract(p.x*3.5),1.0-fract(p.x*3.5)));
@@ -30,7 +30,7 @@ void fragment(){
 		SPECULAR = 0.5;
 	}else{
 		float grain = clamp(value/(surface_kind == 0 ? 0.53 : 0.18),0.45,1.6);
-		ALBEDO = tint.rgb * mix(1.0,grain,0.7);
+		ALBEDO = tint.rgb * mix(1.0,grain,0.28);
 		if(wallpaper>0){
 			vec2 wall_uv = n.z > n.x ? world_point.xy : world_point.zy;
 			float stripe = abs(fract(wall_uv.x*4.0)-0.5);

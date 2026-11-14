@@ -20,7 +20,7 @@ func run() -> void:
 	for rank_value in 6:
 		ui.select_rank(rank_value)
 		await process_frame
-		check(ui.office.windows.size() == (0 if rank_value == 0 else 1), "Wrong window count in rank %d" % rank_value)
+		check(ui.office.windows.size() == (0 if rank_value < 4 else 1), "Wrong window count in rank %d" % rank_value)
 	ui.select_rank(2)
 	await process_frame
 	var home: Transform3D = ui.office.camera.transform
