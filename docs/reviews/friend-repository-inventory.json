@@ -1,0 +1,499 @@
+[
+  {
+    "path": ".gitignore",
+    "kind": "text",
+    "bytes": 29,
+    "lines": 4,
+    "sha256": "5A15CAD18862943E1C0445D924CCA229FDBD8C91BB3A9EFDAB9103BC13448724"
+  },
+  {
+    "path": "AGENTS.md",
+    "kind": "text",
+    "bytes": 3533,
+    "lines": 26,
+    "sha256": "41F2624FA5D1625A0482D95012CAB6945D5B3AADC7B4576A305F0BA95454E4F9"
+  },
+  {
+    "path": "DEVELOPMENT_PLAN.md",
+    "kind": "text",
+    "bytes": 14336,
+    "lines": 70,
+    "sha256": "21AB48EEC0F9CEAA21D2F065AC24A76F6AB90CDE10D21D1D3AFE5C39C116F1AA"
+  },
+  {
+    "path": "README.md",
+    "kind": "text",
+    "bytes": 4544,
+    "lines": 45,
+    "sha256": "E730BF35238484302D08DEB89BC0E13974DEF6183F5AC6CEEF2E7F3CCD39EB78"
+  },
+  {
+    "path": "design/references/.gdignore",
+    "kind": "text",
+    "bytes": 0,
+    "lines": 1,
+    "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  {
+    "path": "design/references/character-sprites-prompt.txt",
+    "kind": "text",
+    "bytes": 1930,
+    "lines": 4,
+    "sha256": "D1C3BCF6168C47C872E7E650124694EDD069BB5AD49713558B4AB967E2F9E1EA"
+  },
+  {
+    "path": "design/references/office-3d-prompt.txt",
+    "kind": "text",
+    "bytes": 2187,
+    "lines": 4,
+    "sha256": "CF83F93C875E874D74F25B1F696219C9E2A816CAE6883F62763AABF7D2A1DBC1"
+  },
+  {
+    "path": "design/references/office-3d.png",
+    "kind": "binary",
+    "bytes": 2098266,
+    "lines": 0,
+    "sha256": "B05DEBCAF23014911A0410DFCCF876E8599B6F72D2B54D9D66FA18FDCD5E83BE"
+  },
+  {
+    "path": "design/references/office-ui-next-prompt.txt",
+    "kind": "text",
+    "bytes": 4117,
+    "lines": 12,
+    "sha256": "57201EF23531B6FC35E99E5B9CE72DCF64EFC3F350ED982F26110B36FB0BA8F9"
+  },
+  {
+    "path": "design/references/office-ui-next.png",
+    "kind": "binary",
+    "bytes": 2838240,
+    "lines": 0,
+    "sha256": "96F6AB6DE3305094A427CD52F2CC148A26047E138DFB49CAF0D4E5B30042D082"
+  },
+  {
+    "path": "design/references/ui-concepts-prompt.txt",
+    "kind": "text",
+    "bytes": 2736,
+    "lines": 4,
+    "sha256": "5C1100729D449ACAA13B734A8E9DE220314220BABACAB85B84AF9B13506D4450"
+  },
+  {
+    "path": "design/references/ui-concepts.png",
+    "kind": "binary",
+    "bytes": 1983790,
+    "lines": 0,
+    "sha256": "AE5F3FC38256864C2EBA8CBE55BD2DB927E7916F4F63287C6F08F84635A53DA0"
+  },
+  {
+    "path": "design/references/visual-improvements-prompt.txt",
+    "kind": "text",
+    "bytes": 3207,
+    "lines": 14,
+    "sha256": "AE2461BC27AA9552EA67ECED389E760C9173D3A7C5E639AF6F8B0D8CB7C03C7E"
+  },
+  {
+    "path": "design/references/visual-improvements.png",
+    "kind": "binary",
+    "bytes": 2386363,
+    "lines": 0,
+    "sha256": "0E5F8C28F7D35D787967487B289D2E093E83751663A6164F4CC9621E4979F52D"
+  },
+  {
+    "path": "design/screenshots/.gdignore",
+    "kind": "text",
+    "bytes": 0,
+    "lines": 1,
+    "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+  },
+  {
+    "path": "design/screenshots/current-interface.jpg",
+    "kind": "binary",
+    "bytes": 244657,
+    "lines": 0,
+    "sha256": "5D07727242223D6A6974E2A80530F83856841CC4480FFFAB4EFC63232D894C3A"
+  },
+  {
+    "path": "design/screenshots/decision.png",
+    "kind": "binary",
+    "bytes": 322859,
+    "lines": 0,
+    "sha256": "ED3F1E3CDE65F3F3E76E7815BDA242D62BA634D3E282A4628FFAB17A99F9E1E0"
+  },
+  {
+    "path": "design/screenshots/office-career.jpg",
+    "kind": "binary",
+    "bytes": 491887,
+    "lines": 0,
+    "sha256": "E48F8371900CABF94E9CB36BAD2028B3BE05A3FD40090732FC216607586AB867"
+  },
+  {
+    "path": "docs/MOBILE_BUILDS.md",
+    "kind": "text",
+    "bytes": 5165,
+    "lines": 35,
+    "sha256": "772BC22207E1781971D52057A18AD5FE0F8C78137A0155E9A2F5A8517D1C1173"
+  },
+  {
+    "path": "docs/PROJECT_CONTEXT.md",
+    "kind": "text",
+    "bytes": 10310,
+    "lines": 56,
+    "sha256": "E34ED45A95E4388942A84F51CBAFE049B63B16BC33B2A89168EAF245B2112321"
+  },
+  {
+    "path": "export_presets.cfg",
+    "kind": "text",
+    "bytes": 1220,
+    "lines": 50,
+    "sha256": "E67A5CA28020BBBFADE87F4CFE527C7D32684C0026170965BF7A7084B0E415A7"
+  },
+  {
+    "path": "game/action_button.gdshader",
+    "kind": "text",
+    "bytes": 2108,
+    "lines": 47,
+    "sha256": "035D6947B8CF4DFD4B75C02D70D9FDAE577492E458AE42FD3ABF112A143ABC0C"
+  },
+  {
+    "path": "game/action_button.gdshader.uid",
+    "kind": "text",
+    "bytes": 20,
+    "lines": 2,
+    "sha256": "78B9C20A9DEACA37170757E09C5C085830F1646A4C7714B278CEFDCCE36192C8"
+  },
+  {
+    "path": "game/art/characters/mira-photo.png",
+    "kind": "binary",
+    "bytes": 52628,
+    "lines": 0,
+    "sha256": "18E56D7ED34202FEC4AFDAE1261A60274C9D199807D0D93D7F64B84F030A694D"
+  },
+  {
+    "path": "game/art/characters/mira-photo.png.import",
+    "kind": "text",
+    "bytes": 953,
+    "lines": 41,
+    "sha256": "1FF8614B153791B5839E066C378E1AFDE229127E3C1DD7646A9D1A8A722A067E"
+  },
+  {
+    "path": "game/art/characters/mira.png",
+    "kind": "binary",
+    "bytes": 317534,
+    "lines": 0,
+    "sha256": "2D1BA624C4D3FD016A088ACA143F1FB369B655DBC0880E3D4B582E01DD024D8F"
+  },
+  {
+    "path": "game/art/characters/mira.png.import",
+    "kind": "text",
+    "bytes": 935,
+    "lines": 41,
+    "sha256": "4FCBCE1B9A17BD64BAEC13DC6173102F05F1F467974B84606F5D50023C9FBABB"
+  },
+  {
+    "path": "game/art/characters/nora-photo.png",
+    "kind": "binary",
+    "bytes": 52063,
+    "lines": 0,
+    "sha256": "68B2D319DBCB391939FB0D3DCA0BFED9AB2A5D4EFA3910C7DDBC62F168AB699B"
+  },
+  {
+    "path": "game/art/characters/nora-photo.png.import",
+    "kind": "text",
+    "bytes": 954,
+    "lines": 41,
+    "sha256": "CDC2A862C1B63F1143E20044B6357B8EB46A92549D781509DBCCE8DD8B604392"
+  },
+  {
+    "path": "game/art/characters/nora.png",
+    "kind": "binary",
+    "bytes": 406794,
+    "lines": 0,
+    "sha256": "706964B6375B4395E07A814F2C81CE6DE871B09827C0E0520FC44AE71BE5C0AB"
+  },
+  {
+    "path": "game/art/characters/nora.png.import",
+    "kind": "text",
+    "bytes": 934,
+    "lines": 41,
+    "sha256": "22FD752F278023D1E26EC5C204F77D73F796F6A32075F132841117CC2388C715"
+  },
+  {
+    "path": "game/art/characters/owen-photo.png",
+    "kind": "binary",
+    "bytes": 44318,
+    "lines": 0,
+    "sha256": "20DF544D85F78414ECC013249065A0F07EBCA176445442EC76E313E7BCAF7C89"
+  },
+  {
+    "path": "game/art/characters/owen-photo.png.import",
+    "kind": "text",
+    "bytes": 953,
+    "lines": 41,
+    "sha256": "2EED0B7A2797A55B51A6D8E8C38177DC45CD0962EFD937F1A39EDA7FEF887B51"
+  },
+  {
+    "path": "game/art/characters/owen.png",
+    "kind": "binary",
+    "bytes": 387150,
+    "lines": 0,
+    "sha256": "4ACB468FB71FCB7100080DCBFD19C97B0A3C71CFB26407172787A555531336AE"
+  },
+  {
+    "path": "game/art/characters/owen.png.import",
+    "kind": "text",
+    "bytes": 934,
+    "lines": 41,
+    "sha256": "1770283ADEF412B7247CCD742224BD355BCA18597128FD77DA89B07ABFBA5BA6"
+  },
+  {
+    "path": "game/art/characters/victor-photo.png",
+    "kind": "binary",
+    "bytes": 50809,
+    "lines": 0,
+    "sha256": "3938704FB104E4EEF775F969180EDAB0AD5B20D30E97C4FC7A49C53789D11D3D"
+  },
+  {
+    "path": "game/art/characters/victor-photo.png.import",
+    "kind": "text",
+    "bytes": 960,
+    "lines": 41,
+    "sha256": "5A9E46F2EB7F508CF8ECE0F768825437D618C016FC545A4DD0AB9B7DAA4003D6"
+  },
+  {
+    "path": "game/art/characters/victor.png",
+    "kind": "binary",
+    "bytes": 500984,
+    "lines": 0,
+    "sha256": "4E37B9F7E7AF818BCB66412B17E462720C77AFA697CB363C6F94EE301E9BBE44"
+  },
+  {
+    "path": "game/art/characters/victor.png.import",
+    "kind": "text",
+    "bytes": 941,
+    "lines": 41,
+    "sha256": "F077669C4C6778D2EA735D870E0664FB4A4C15AE3565E0B695A936F01B851A44"
+  },
+  {
+    "path": "game/art/fonts/OFL-PTSerif.txt",
+    "kind": "text",
+    "bytes": 4527,
+    "lines": 94,
+    "sha256": "A4C860D54438B2B424019A0CA55DAB8473891C144EE9CE651867B906C381B39F"
+  },
+  {
+    "path": "game/art/fonts/PTSerif-Bold.ttf",
+    "kind": "binary",
+    "bytes": 339996,
+    "lines": 0,
+    "sha256": "038BA7336BD7EA14F12AD155BED51A4345CAC5153275D521DEC3BA04021C526E"
+  },
+  {
+    "path": "game/art/fonts/PTSerif-Bold.ttf.import",
+    "kind": "text",
+    "bytes": 776,
+    "lines": 37,
+    "sha256": "5E00CFE6D23B2A255A970CF16DC030863E269E79C936DE98606B05DCA328D891"
+  },
+  {
+    "path": "game/art/fonts/PTSerif-Regular.ttf",
+    "kind": "binary",
+    "bytes": 359048,
+    "lines": 0,
+    "sha256": "A4951FADE06FF8F09B7673AA81FFB65A8CD409E24D3289A6DC670BC4DDA2557A"
+  },
+  {
+    "path": "game/art/fonts/PTSerif-Regular.ttf.import",
+    "kind": "text",
+    "bytes": 784,
+    "lines": 37,
+    "sha256": "8B46F14C3914753983CA6E515450B34A7978F755BEB1334E6D01A1A8969145DB"
+  },
+  {
+    "path": "game/art/icon.png",
+    "kind": "binary",
+    "bytes": 10967,
+    "lines": 0,
+    "sha256": "E97075970823D2DF776A422938C92D6C4CD980C6EE317765D834641E784343B4"
+  },
+  {
+    "path": "game/art/icon.png.import",
+    "kind": "text",
+    "bytes": 925,
+    "lines": 41,
+    "sha256": "1B7B6697272C40464E87697C1D6F82A8D65770F5788C1C01BC08B9D04A75DCBF"
+  },
+  {
+    "path": "game/art/office/case-cover.jpg",
+    "kind": "binary",
+    "bytes": 272707,
+    "lines": 0,
+    "sha256": "EACDAFC9D10E0116AD7626804BEC0C356B19252FA8DAD8E16854759D5780B4B8"
+  },
+  {
+    "path": "game/art/office/case-cover.jpg.import",
+    "kind": "text",
+    "bytes": 950,
+    "lines": 41,
+    "sha256": "BEF4EBE2DB9F98EDDA8CD2FB59F1226345DCDFF2388E9068C4A34C8DBED60741"
+  },
+  {
+    "path": "game/art/party-portraits.png",
+    "kind": "binary",
+    "bytes": 3226801,
+    "lines": 0,
+    "sha256": "7BC6C1ADEBD6CDFEEC9006088AD76BE0FBD0DE482AA4235C3DDF4EDF67D0F38B"
+  },
+  {
+    "path": "game/art/party-portraits.png.import",
+    "kind": "text",
+    "bytes": 957,
+    "lines": 41,
+    "sha256": "113F9ED87102A947A33BA2010A6B940A8091C58A03574892F898A3C3FB7FB011"
+  },
+  {
+    "path": "game/audio/desk-phone.wav",
+    "kind": "binary",
+    "bytes": 132344,
+    "lines": 0,
+    "sha256": "4E20C2A259E4E8F2A0CC6155A987B7CCBAAA80D17450314BE02E4520FED195C3"
+  },
+  {
+    "path": "game/audio/desk-phone.wav.import",
+    "kind": "text",
+    "bytes": 499,
+    "lines": 25,
+    "sha256": "2FFE7923322A4B34495AC48C690EE6F6CA295134EBFD40244E0F65006817983D"
+  },
+  {
+    "path": "game/button_feedback.gd",
+    "kind": "text",
+    "bytes": 1545,
+    "lines": 48,
+    "sha256": "83FF5202E43685E442A38C64D3DC2CC90AD10E4CBDE83F06C7D7D088BD36B25B"
+  },
+  {
+    "path": "game/button_feedback.gd.uid",
+    "kind": "text",
+    "bytes": 21,
+    "lines": 2,
+    "sha256": "B0196866E77F320C66403B1B2307FE30D8A26F8D51F62F3F92AB5393B9A89648"
+  },
+  {
+    "path": "game/campaign.gd",
+    "kind": "text",
+    "bytes": 12872,
+    "lines": 355,
+    "sha256": "AD36F8967ABE7186EE3033FDE9BDD771340E21F2CD15EF3A1FB814CF9ED76E51"
+  },
+  {
+    "path": "game/campaign.gd.uid",
+    "kind": "text",
+    "bytes": 21,
+    "lines": 2,
+    "sha256": "2F1C96F73E4F95E60ABCBF160A9B27C02A836BF246126DB47909FFCBEBE86CD3"
+  },
+  {
+    "path": "game/characters.gd",
+    "kind": "text",
+    "bytes": 1025,
+    "lines": 23,
+    "sha256": "201E19FBEA0210940BD025081660D69600DCEFC9E0EC32D4697E9C18540C25F4"
+  },
+  {
+    "path": "game/characters.gd.uid",
+    "kind": "text",
+    "bytes": 21,
+    "lines": 2,
+    "sha256": "D517C92B630E5DCC6B8E1391026BF168D1689AB13EB94E5F600E20205E6B4A33"
+  },
+  {
+    "path": "game/dossier_paper.gdshader",
+    "kind": "text",
+    "bytes": 1311,
+    "lines": 29,
+    "sha256": "6BB790402A8B86E7F825749CF88CCA1BE772DCF3FED89202104557AD3C03F4F5"
+  },
+  {
+    "path": "game/dossier_paper.gdshader.uid",
+    "kind": "text",
+    "bytes": 20,
+    "lines": 2,
+    "sha256": "4965F40B3B1A6DCEE6DBB7CB66BED1B4B1893D311C4B9A87B2C424CF37C0A3B9"
+  },
+  {
+    "path": "game/events.json",
+    "kind": "text",
+    "bytes": 41054,
+    "lines": 969,
+    "sha256": "B12A566C7678C3F49B7A2E3A2F2FD8A2AB5AEE95753DF0727010ABFADF0B3505"
+  },
+  {
+    "path": "game/main.gd",
+    "kind": "text",
+    "bytes": 48150,
+    "lines": 1120,
+    "sha256": "10A6D643029F9B4E5BE957C8CEE5B3FD881BEDA79A8A70F024BA38C2DD47CA16"
+  },
+  {
+    "path": "game/main.gd.uid",
+    "kind": "text",
+    "bytes": 21,
+    "lines": 2,
+    "sha256": "34F0AD1DE346646FD449B2234FD873A01D1E1ACBE59331B7FD224430F4FCEAF8"
+  },
+  {
+    "path": "game/main.tscn",
+    "kind": "text",
+    "bytes": 287,
+    "lines": 13,
+    "sha256": "C5C4EF05A1A62A8D1475B9CDC0628E11F7BF0C1E235389F33C7F78B779A22BED"
+  },
+  {
+    "path": "game/office_stage.gd",
+    "kind": "text",
+    "bytes": 45589,
+    "lines": 976,
+    "sha256": "B9CF8DC339A364EF022C9E987B828336EE7D2AF1E50622F3C54B5BB30A36CB60"
+  },
+  {
+    "path": "game/office_stage.gd.uid",
+    "kind": "text",
+    "bytes": 20,
+    "lines": 2,
+    "sha256": "47AE5F70F68C006F6BE021F84718A444C4E0D3C5042B6065FC530F363BCF02F5"
+  },
+  {
+    "path": "game/office_surface.gdshader",
+    "kind": "text",
+    "bytes": 3183,
+    "lines": 84,
+    "sha256": "7F0A87F99E12159AEA185C605045A95D4C5CB4848FD5BEF49FCA282EBBDA4AF4"
+  },
+  {
+    "path": "game/office_surface.gdshader.uid",
+    "kind": "text",
+    "bytes": 21,
+    "lines": 2,
+    "sha256": "76452A9DC783B1C559E8B4E5A14B4AA37908DA1D8B77EF61D429BEDCB0C8EB27"
+  },
+  {
+    "path": "game/ui_icon.gd",
+    "kind": "text",
+    "bytes": 5645,
+    "lines": 128,
+    "sha256": "46058CF48014BEAC957A3259FE6798CF8C34D20136F1206B38C29D7970534402"
+  },
+  {
+    "path": "game/ui_icon.gd.uid",
+    "kind": "text",
+    "bytes": 21,
+    "lines": 2,
+    "sha256": "888A3C6F91790D51D191E07736AE6F8BE590B0646468D47FF2653D34854BF04D"
+  },
+  {
+    "path": "project.godot",
+    "kind": "text",
+    "bytes": 1035,
+    "lines": 38,
+    "sha256": "091CB7A84369468616398B944E86680945911169683D62088FCBB445EC1BDAC6"
+  }
+]

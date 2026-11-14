@@ -14,6 +14,12 @@ var location_label: Label
 var hint: Label
 var rank_select: OptionButton
 var party_select: OptionButton
+var interaction_epoch := 0
+var hud: Control
+var footer: Control
+var modal_shade: ColorRect
+var modal_margin: MarginContainer
+var reader_scroll: ScrollContainer
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -50,6 +56,7 @@ func text(parent: Node, value: String, font_size: int = 17, color: String = "#29
 	label.text = value
 	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	label.add_theme_font_size_override("font_size", font_size)
+	label.add_theme_font_override("font", preload("res://game/art/fonts/PTSerif-Bold.ttf") if font_size >= 21 else preload("res://game/art/fonts/PTSerif-Regular.ttf"))
 	label.add_theme_color_override("font_color", Color(color))
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	parent.add_child(label)
@@ -70,6 +77,7 @@ func button(parent: Node, title: String, callback: Callable) -> Button:
 
 func build_interface() -> void:
 	var top := PanelContainer.new()
+	hud = top
 	top.add_theme_stylebox_override("panel", surface("#f0e3c7"))
 	add_child(top)
 	top.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
@@ -104,6 +112,7 @@ func build_interface() -> void:
 		party_select.add_item(party)
 	column.add_child(party_select)
 	var bottom := PanelContainer.new()
+	footer = bottom
 	bottom.add_theme_stylebox_override("panel", surface("#243e3c", "#7e927e"))
 	add_child(bottom)
 	bottom.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
@@ -127,11 +136,13 @@ func build_interface() -> void:
 	modal.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	modal.mouse_filter = Control.MOUSE_FILTER_STOP
 	var shade := ColorRect.new()
+	modal_shade = shade
 	shade.color = Color(0.04, 0.08, 0.09, 0.62)
 	shade.mouse_filter = Control.MOUSE_FILTER_STOP
 	modal.add_child(shade)
 	shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var margin := MarginContainer.new()
+	modal_margin = margin
 	modal.add_child(margin)
 	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	margin.add_theme_constant_override("margin_left", 18)
@@ -143,9 +154,14 @@ func build_interface() -> void:
 	panel.add_theme_stylebox_override("panel", surface("#f1e6ce"))
 	margin.add_child(panel)
 	var scroll := ScrollContainer.new()
+	reader_scroll = scroll
 	scroll.custom_minimum_size.y = 330
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	panel.add_child(scroll)
+	var reader_column := VBoxContainer.new()
+	reader_column.add_theme_constant_override("separation", 8)
+	panel.add_child(reader_column)
+	reader_column.add_child(scroll)
+	button(reader_column, "К столу", close_panel)
 	sheet = VBoxContainer.new()
 	sheet.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	sheet.add_theme_constant_override("separation", 10)
@@ -190,8 +206,24 @@ func clear_sheet(title: String) -> void:
 func open_interaction(id: String) -> void:
 	if id not in ["folder", "phone", "agenda", "door"]:
 		return
+	if active_panel == id:
+		return
+	interaction_epoch += 1
+	var epoch := interaction_epoch
 	active_panel = id
-	modal.show()
+	modal.visible = id != "folder"
+	modal_shade.color.a = 0.1 if id == "folder" else 0.62
+	modal_margin.add_theme_constant_override("margin_top", mini(350, maxi(230,int(size.y)-390)) if id == "folder" else 185)
+	modal_margin.add_theme_constant_override("margin_bottom", 30 if id == "folder" else 90)
+	reader_scroll.custom_minimum_size.y = minf(260, size.y-350) if id == "folder" else minf(330,size.y-340)
+	if id == "folder":
+		hud.hide()
+		footer.hide()
+		var movement: Tween = office.focus_folder()
+		movement.finished.connect(func() -> void:
+			if interaction_epoch == epoch and active_panel == "folder":
+				modal.show()
+		, CONNECT_ONE_SHOT)
 	match id:
 		"folder":
 			clear_sheet("Рабочая папка")
@@ -213,8 +245,6 @@ func open_interaction(id: String) -> void:
 			button(sheet, "Встреча с коллегами", show_contacts)
 			button(sheet, "Выступление перед жителями", show_public_meeting)
 			button(sheet, "Обсудить инициативу", show_initiative)
-	if id != "agenda":
-		button(sheet, "Вернуться к столу", close_panel)
 
 func show_task() -> void:
 	clear_sheet("Первое знакомство")
@@ -222,58 +252,55 @@ func show_task() -> void:
 	button(sheet, "Поговорить с командой", task_result.bind("Коллеги объяснили, какие обещания уже даны. Теперь ты знаешь, о чём жители спросят в первую очередь."))
 	button(sheet, "Собрать вопросы жителей", task_result.bind("Ты записал вопросы жителей. На встрече можно начать с того, что волнует их самих."))
 	text(sheet, "Пробная сцена взаимодействия. Полная кампания и численные последствия ещё не подключены.", 13, "#786e59")
-	button(sheet, "Вернуться к столу", close_panel)
 
 func task_result(result: String) -> void:
 	clear_sheet("Решение принято")
 	text(sheet, result)
-	button(sheet, "К столу", close_panel)
 
 func show_biography() -> void:
 	clear_sheet(profile.full_name)
 	text(sheet, Catalog.ROOMS[rank_index].rank)
 	text(sheet, "Партия: " + Catalog.PARTIES[party_select.selected])
 	text(sheet, "Постоянный контакт: " + str(profile.companion.name))
-	button(sheet, "К столу", close_panel)
 
 func show_obligations() -> void:
 	clear_sheet("Обязательства")
 	text(sheet, "В этой демонстрации незакрытых обещаний пока нет.")
-	button(sheet, "К столу", close_panel)
 
 func companion_reply() -> void:
 	clear_sheet(profile.companion.name)
 	text(sheet, "«Работы хватает. Но хорошо, что ты спросил. Как-нибудь зайди без повестки — просто поговорить.»")
-	button(sheet, "К столу", close_panel)
 
 func show_contacts() -> void:
 	clear_sheet("Люди рядом")
 	for person in Catalog.ROOMS[rank_index].people:
 		button(sheet, person, contact_scene.bind(person))
-	button(sheet, "К столу", close_panel)
 
 func contact_scene(person: String) -> void:
 	clear_sheet(person)
 	text(sheet, "«Прежде чем обещать результат, давай разберёмся, что мы можем сделать.»")
 	button(sheet, "Обсудить встречу с жителями", show_task)
-	button(sheet, "Вернуться к столу", close_panel)
 
 func show_public_meeting() -> void:
 	clear_sheet("Встреча с жителями")
 	text(sheet, "В зале уже ждут. Тебе дают слово: с чего начнёшь разговор?")
 	button(sheet, "Спросить о проблемах района", task_result.bind("Люди начали рассказывать о своих проблемах. Получился разговор, а не заученная речь."))
 	button(sheet, "Представить план отделения", task_result.bind("Ты изложил план. Теперь жители хотят услышать, какие из обещаний будут выполнены первыми."))
-	button(sheet, "К столу", close_panel)
 
 func show_initiative() -> void:
 	clear_sheet("Обсуждение инициативы")
 	text(sheet, "Команда предлагает начать с районных встреч: сначала узнать запросы, затем выбирать содержание и бюджет проекта.")
 	button(sheet, "Подготовить вопросы", show_task)
-	button(sheet, "К столу", close_panel)
 
 func close_panel() -> void:
+	interaction_epoch += 1
 	active_panel = ""
 	if modal != null:
 		modal.hide()
+	if hud != null:
+		hud.show()
+		footer.show()
+	if office != null and office.has_method("return_to_desk"):
+		office.return_to_desk()
 	if office != null and office.door_hinge != null and office.opened:
 		office.animate_door(false)

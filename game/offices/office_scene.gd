@@ -1,7 +1,14 @@
 extends Node3D
 
 const Catalog := preload("res://game/offices/office_catalog.gd")
-const SURFACE := preload("res://game/office_surface.gdshader")
+const PaintedSurface := preload("res://game/offices/surface_material.gdshader")
+const BeveledMesh := preload("res://game/offices/beveled_mesh.gd")
+const DeskDetails := preload("res://game/offices/desk_details.gd")
+const WindowView := preload("res://game/offices/window_view.gd")
+const WoodTexture := preload("res://game/offices/assets/textures/walnut.png")
+const WallTexture := preload("res://game/offices/assets/textures/plaster.png")
+const FabricTexture := preload("res://game/offices/assets/textures/fabric.png")
+const MapTexture := preload("res://game/offices/assets/textures/district_map.png")
 var camera: Camera3D
 var layout_signature := ""
 var targets: Dictionary = {}
@@ -9,6 +16,12 @@ var door_hinge: Node3D
 var opened := false
 var moving: Tween
 var mats: Dictionary = {}
+var windows: Array[Node3D] = []
+var folder_hinge: Node3D
+var folder_center := Vector3.ZERO
+var resting_camera := Transform3D.IDENTITY
+var focus_motion: Tween
+var folder_focused := false
 
 func _ready() -> void:
 	camera = Camera3D.new()
@@ -27,9 +40,11 @@ func material(color: String, finish: int = -1) -> Material:
 	var result: Material
 	if finish >= 0:
 		var painted := ShaderMaterial.new()
-		painted.shader = SURFACE
+		painted.shader = PaintedSurface
 		painted.set_shader_parameter("tint", Color(color))
-		painted.set_shader_parameter("finish", finish)
+		var kind := 1 if finish in [1,3,4] else (2 if finish == 5 else (3 if finish == 6 else 0))
+		painted.set_shader_parameter("surface_kind", kind)
+		painted.set_shader_parameter("surface_tex", WoodTexture if kind in [1,2] else (FabricTexture if kind == 3 else WallTexture))
 		result = painted
 	else:
 		var plain := StandardMaterial3D.new()
@@ -40,10 +55,8 @@ func material(color: String, finish: int = -1) -> Material:
 	return result
 
 func box(parent: Node3D, at: Vector3, dimensions: Vector3, mat: Material) -> MeshInstance3D:
-	var mesh := BoxMesh.new()
-	mesh.size = dimensions
 	var node := MeshInstance3D.new()
-	node.mesh = mesh
+	node.mesh = BeveledMesh.create(dimensions)
 	node.material_override = mat
 	node.position = at
 	parent.add_child(node)
@@ -63,6 +76,11 @@ func cylinder(parent: Node3D, at: Vector3, radius: float, height: float, mat: Ma
 	return node
 
 func build(index: int) -> void:
+	if focus_motion != null:
+		focus_motion.kill()
+	folder_focused = false
+	windows.clear()
+	folder_hinge = null
 	if moving != null:
 		moving.kill()
 	for child in get_children():
@@ -73,7 +91,10 @@ func build(index: int) -> void:
 	opened = false
 	var spec: Dictionary = Catalog.ROOMS[clampi(index, 0, 5)]
 	var focus_x: float = [0.0, -0.1, -0.4, -0.6, 0.7, -0.1][clampi(index, 0, 5)]
+	camera.position = Vector3(0, 1.65, 4.1)
+	camera.fov = 66.0
 	camera.look_at(Vector3(focus_x, 1.04, -2.7))
+	resting_camera = camera.transform
 	layout_signature = spec.layout
 	var width: float = spec.width
 	var back: float = spec.back
@@ -81,7 +102,7 @@ func build(index: int) -> void:
 	var wall := material(spec.wall, 2)
 	var wood := material("#805a3c" if index < 3 else "#624331", 3)
 	var trim := material("#c5b38e" if index < 2 else "#a28052", 1)
-	var floor_mat := material("#74695a" if index < 2 else "#77624b", 3)
+	var floor_mat := material("#a48b6a" if index < 2 else "#9e7e57", 5)
 	var floor_depth := 4.2 - back
 	box(self, Vector3(0, -0.08, (back + 4.2) / 2.0), Vector3(width, 0.16, floor_depth), floor_mat)
 	box(self, Vector3(0, height, (back + 4.2) / 2.0), Vector3(width, 0.12, floor_depth), material("#c9c4ae"))
@@ -100,7 +121,7 @@ func build(index: int) -> void:
 	build_lighting(index, height, back)
 	build_desk(Vector3(0, 0, 1.72), wood, index, true)
 	if index >= 2:
-		box(self, Vector3(-0.2, 0.015, -1.8), Vector3(3.4, 0.02, 4.2), material("#69534a" if index < 4 else "#40575a"))
+		box(self, Vector3(-0.2, 0.015, -1.8), Vector3(3.4, 0.02, 4.2), material("#69534a" if index < 4 else "#40575a", 6))
 	match index:
 		0:
 			build_hall(wood, trim)
@@ -114,6 +135,7 @@ func build(index: int) -> void:
 			build_reception(wood, back, width)
 		5:
 			build_leader(wood, back, width)
+	DeskDetails.extras(self, Vector3(0,0,1.72), index)
 
 func build_lighting(index: int, height: float, back: float) -> void:
 	var world := WorldEnvironment.new()
@@ -122,20 +144,24 @@ func build_lighting(index: int, height: float, back: float) -> void:
 	env.background_color = Color("#344653")
 	env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	env.ambient_light_color = Color("#dce4e3")
-	env.ambient_light_energy = 0.6
+	env.ambient_light_energy = 0.48
+	env.tonemap_mode = Environment.TONE_MAPPER_FILMIC
+	env.ssao_enabled = true
+	env.ssao_radius = 0.55
+	env.ssao_intensity = 1.7
 	world.environment = env
 	add_child(world)
 	var sun := DirectionalLight3D.new()
 	sun.rotation_degrees = Vector3(-48, -28, 0)
 	sun.light_color = Color("#ffe4b6")
-	sun.light_energy = 0.8
+	sun.light_energy = 1.0
 	sun.shadow_enabled = true
 	add_child(sun)
 	var fill := OmniLight3D.new()
-	fill.position = Vector3(0, height - 0.4, -0.5)
+	fill.position = Vector3(0, 1.7, 1.0)
 	fill.omni_range = 10.0
 	fill.light_color = Color("#ffe4b8")
-	fill.light_energy = 0.8
+	fill.light_energy = 0.12
 	add_child(fill)
 	var lamp := StandardMaterial3D.new()
 	lamp.albedo_color = Color("#fff3cb")
@@ -186,28 +212,19 @@ func build_desk(at: Vector3, wood: Material, index: int, interactive: bool = fal
 	for x in [-width / 2.0 + 0.13, width / 2.0 - 0.13]:
 		box(desk, Vector3(x, 0.42, 0), Vector3(0.16, 0.84, 1.05), wood)
 	box(desk, Vector3(0, 0.48, -0.43), Vector3(width - 0.25, 0.45, 0.07), wood)
-	box(desk, Vector3(0, 0.937, 0.25), Vector3(width * 0.75, 0.014, 1.75 if interactive else 0.9), material("#394b4c" if index < 3 else "#623e3c"))
+	box(desk, Vector3(0, 0.937, 0.25), Vector3(width * 0.75, 0.014, 1.75 if interactive else 0.9), material("#394b4c" if index < 3 else "#623e3c", 6))
 	if not interactive:
 		box(desk, Vector3(0, 1.15, -0.22), Vector3(0.55, 0.35, 0.05), material("#333e40"))
 		cylinder(desk, Vector3(0, 0.96, -0.22), 0.11, 0.04, material("#333e40"))
 		return
 	# These are solid meshes with independent 3D click targets.
-	var folder_at := at + Vector3(-0.07, 0.964, 0.12)
-	box(self, folder_at, Vector3(0.55, 0.035, 0.42), material("#b28b54"))
-	box(self, folder_at + Vector3(0.01, 0.025, 0.01), Vector3(0.49, 0.018, 0.35), material("#eadcbb"))
-	box(self, folder_at + Vector3(0.0, 0.039, -0.02), Vector3(0.55, 0.012, 0.42), material("#af754b"))
-	box(self, folder_at + Vector3(0.12, 0.05, -0.13), Vector3(0.18, 0.008, 0.07), material("#d4b66c"))
-	for line in 3:
-		box(self, folder_at + Vector3(-0.05, 0.049, -0.03 + line * 0.035), Vector3(0.23, 0.003, 0.008), material("#654e39"))
-	target("folder", folder_at + Vector3(0, 0.04, 0), Vector3(0.61, 0.14, 0.47))
-	var phone_at := at + Vector3(-0.34, 1.005, -0.4)
-	box(self, phone_at, Vector3(0.34, 0.13, 0.32), material("#ddd0ae"))
-	box(self, phone_at + Vector3(0, 0.11, -0.08), Vector3(0.43, 0.075, 0.12), material("#d2c5a2"))
-	for x in 3:
-		for z in 3:
-			box(self, phone_at + Vector3(-0.07 + x * 0.07, 0.072, -0.025 + z * 0.06), Vector3(0.045, 0.015, 0.04), material("#5d6560"))
-	target("phone", phone_at + Vector3(0, 0.06, 0), Vector3(0.47, 0.28, 0.4))
-	var planner_at := at + Vector3(0.35, 0.99, -0.38)
+	folder_center = at + Vector3(-0.03, 0.96, 0.14)
+	folder_hinge = DeskDetails.folder(self, folder_center)
+	target("folder", folder_center + Vector3(0,0.05,0), Vector3(0.82,0.15,0.91))
+	var phone_at := at + Vector3(-0.64, 1.005, -0.4)
+	DeskDetails.phone(self, phone_at)
+	target("phone", phone_at + Vector3(0,0.06,0), Vector3(0.47,0.28,0.4))
+	var planner_at := at + Vector3(0.57, 0.99, -0.45)
 	box(self, planner_at, Vector3(0.32, 0.06, 0.28), material("#35556a"))
 	box(self, planner_at + Vector3(0, 0.035, 0), Vector3(0.27, 0.01, 0.22), material("#dfd0ae"))
 	target("agenda", planner_at + Vector3(0, 0.03, 0), Vector3(0.38, 0.16, 0.34))
@@ -234,7 +251,7 @@ func chair(at: Vector3, color: String = "#704d43", angle: float = 0.0) -> void:
 	root.position = at
 	root.rotation.y = angle
 	add_child(root)
-	var upholstery := material(color)
+	var upholstery := material(color, 6)
 	var frame := material("#63533f", 1)
 	box(root, Vector3(0, 0.47, 0), Vector3(0.55, 0.12, 0.55), upholstery)
 	box(root, Vector3(0, 0.85, 0.23), Vector3(0.55, 0.7, 0.09), upholstery)
@@ -252,43 +269,56 @@ func shelf(at: Vector3, width: float = 1.2) -> void:
 		for book in 6:
 			var color: String = ["#8b5345", "#c5ae73", "#425a60", "#746f49"][book % 4]
 			box(self, at + Vector3(-width * 0.4 + book * width * 0.14, 0.32 + row * 0.5, 0.02), Vector3(width * 0.105, 0.28 + (book % 3) * 0.04, 0.22), material(color))
+			for band_y in [-0.07,0.07]:
+				box(self,at+Vector3(-width*0.4+book*width*0.14,0.32+row*0.5+band_y,0.135),Vector3(width*0.08,0.009,0.005),material("#c2ad7a"))
 
 func back_window(at: Vector3, width: float, height: float) -> void:
-	var sky := StandardMaterial3D.new()
-	sky.albedo_color = Color("#a7c7cc")
-	sky.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	box(self, at, Vector3(width, height, 0.03), sky)
-	for i in 8:
-		var h := 0.25 + (i * 3 % 5) * 0.13
-		box(self, at + Vector3(-width * 0.43 + i * width * 0.12, -height / 2.0 + h / 2.0 + 0.1, 0.03), Vector3(width * 0.085, h, 0.06), material("#819799"))
-	for y in [-height / 2.0, 0.0, height / 2.0]:
-		box(self, at + Vector3(0, y, 0.08), Vector3(width + 0.1, 0.065, 0.12), material("#d1c2a3"))
-	for x in [-width / 2.0, -width / 6.0, width / 6.0, width / 2.0]:
-		box(self, at + Vector3(x, 0, 0.08), Vector3(0.06, height, 0.12), material("#d1c2a3"))
+	var view := WindowView.new()
+	view.position = at
+	add_child(view)
+	view.setup(self, Vector2(width,height))
+	windows.append(view)
+	for y in [-height/2.0,0.0,height/2.0]:
+		box(self, at+Vector3(0,y,0.26),Vector3(width+0.14,0.07,0.14),material("#baa57f",1))
+	for x in [-width/2.0,-width/6.0,width/6.0,width/2.0]:
+		box(self,at+Vector3(x,0,0.26),Vector3(0.07,height,0.14),material("#baa57f",1))
+	box(self,at+Vector3(0,-height/2.0-0.06,0.3),Vector3(width+0.25,0.1,0.38),material("#b59f78",1))
+	var key := SpotLight3D.new()
+	key.position=at+Vector3(-width*0.25,height*0.3,0.45)
+	key.light_color=Color("#ffe2b0")
+	key.light_energy=0.45
+	key.light_specular=0.25
+	key.spot_range=12.0
+	key.spot_angle=52
+	key.spot_attenuation=0.4
+	key.shadow_enabled=true
+	add_child(key)
+	key.look_at(Vector3(0,0.8,1.7))
 
 func wall_map(at: Vector3, width: float = 1.6) -> void:
-	box(self, at, Vector3(width + 0.12, 1.0, 0.08), material("#735239", 1))
-	box(self, at + Vector3(0, 0, 0.05), Vector3(width, 0.88, 0.02), material("#c7ba91"))
-	for i in 7:
-		var x := -width * 0.35 + i * width * 0.11
-		var patch := box(self, at + Vector3(x, sin(i * 2.0) * 0.2, 0.075), Vector3(width * 0.17, 0.22, 0.01), material(["#8d9b77", "#b1a178", "#81978b"][i % 3]))
-		patch.rotation.z = i * 0.4
+	box(self,at,Vector3(width+0.14,1.04,0.08),material("#735239",1))
+	var mesh := QuadMesh.new()
+	mesh.size=Vector2(width,0.9)
+	var poster := MeshInstance3D.new()
+	poster.mesh=mesh
+	poster.position=at+Vector3(0,0,0.055)
+	var mat := StandardMaterial3D.new()
+	mat.albedo_texture=MapTexture
+	mat.roughness=1.0
+	poster.material_override=mat
+	add_child(poster)
 
 func window_left(width: float, back: float, height: float = 2.6) -> void:
-	# Painted sky and modelled skyline sit in a recessed window assembly.
-	var x := -width / 2.0 + 0.1
-	var z := back / 2.0
-	var sky := StandardMaterial3D.new()
-	sky.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	sky.albedo_color = Color("#a2c8d3")
-	box(self, Vector3(x + 0.025, height / 2.0 + 0.45, z), Vector3(0.03, height, absf(back) * 0.65), sky)
-	for i in 9:
-		var tower_height := 0.3 + (i * 7 % 5) * 0.17
-		box(self, Vector3(x + 0.052, 0.9 + tower_height / 2.0, z - 1.2 + i * 0.3), Vector3(0.04, tower_height, 0.22), material("#81999d"))
-	for y in [0.45, height + 0.45]:
-		box(self, Vector3(x + 0.08, y, z), Vector3(0.12, 0.1, absf(back) * 0.65 + 0.1), material("#465353"))
+	var view := WindowView.new()
+	view.position=Vector3(-width/2.0+0.11,height/2.0+0.45,back/2.0)
+	view.rotation.y=PI/2.0
+	add_child(view)
+	view.setup(self, Vector2(absf(back)*0.65,height))
+	windows.append(view)
 	for i in 5:
-		box(self, Vector3(x + 0.09, height / 2.0 + 0.45, z - absf(back) * 0.325 + i * absf(back) * 0.1625), Vector3(0.14, height, 0.06), material("#465353"))
+		box(view,Vector3(-view.width/2.0+i*view.width/4.0,0,0.26),Vector3(0.06,height,0.12),material("#b4aa89",1))
+	for y in [-height/2.0,0.0,height/2.0]:
+		box(view,Vector3(0,y,0.26),Vector3(view.width+0.1,0.06,0.12),material("#b4aa89",1))
 
 func meeting_table(at: Vector3, wood: Material, length: float = 2.4) -> void:
 	box(self, at + Vector3(0, 0.78, 0), Vector3(1.1, 0.09, length), wood)
@@ -298,7 +328,7 @@ func meeting_table(at: Vector3, wood: Material, length: float = 2.4) -> void:
 		chair(at + Vector3(0.95, 0, z), "#4e6264", PI / 2.0)
 
 func build_hall(wood: Material, trim: Material) -> void:
-	var fabric := material("#778579")
+	var fabric := material("#778579", 6)
 	for x in [-1.18, 1.18]:
 		box(self, Vector3(x, 0.66, 1.4), Vector3(0.07, 1.32, 2.6), fabric)
 	box(self, Vector3(0, 0.46, 0.18), Vector3(2.35, 0.92, 0.07), fabric)
@@ -410,3 +440,29 @@ func animate_door(open: bool) -> void:
 		moving.kill()
 	moving = create_tween()
 	moving.tween_property(door_hinge, "rotation:y", deg_to_rad(-88.0) if open else 0.0, 0.35).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+
+
+func focus_folder() -> Tween:
+	if focus_motion != null:
+		focus_motion.kill()
+	folder_focused=true
+	var eye := folder_center+Vector3(0.15,1.34,1.16)
+	var destination := Transform3D(Basis.IDENTITY,eye).looking_at(folder_center+Vector3(0.0,0.02,0))
+	var start := camera.transform
+	focus_motion=create_tween().set_parallel(true).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
+	focus_motion.tween_method(func(weight:float)->void: camera.transform=start.interpolate_with(destination,weight),0.0,1.0,0.55)
+	focus_motion.tween_property(camera,"fov",48.0,0.55)
+	focus_motion.tween_property(folder_hinge,"rotation:z",deg_to_rad(155),0.38).set_delay(0.42)
+	return focus_motion
+
+func return_to_desk() -> void:
+	if not folder_focused:
+		return
+	if focus_motion != null:
+		focus_motion.kill()
+	folder_focused=false
+	var start := camera.transform
+	focus_motion=create_tween().set_parallel(true).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
+	focus_motion.tween_property(folder_hinge,"rotation:z",0.0,0.28)
+	focus_motion.tween_method(func(weight:float)->void: camera.transform=start.interpolate_with(resting_camera,weight),0.0,1.0,0.5).set_delay(0.18)
+	focus_motion.tween_property(camera,"fov",66.0,0.5).set_delay(0.18)

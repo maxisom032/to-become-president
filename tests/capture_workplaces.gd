@@ -22,5 +22,15 @@ func capture() -> void:
 		await process_frame
 	await RenderingServer.frame_post_draw
 	root.get_texture().get_image().save_png("res://build/previews/door-panel.png")
+	ui.close_panel()
+	ui.select_rank(2)
+	ui.open_interaction("folder")
+	await create_timer(1.15).timeout
+	await RenderingServer.frame_post_draw
+	root.get_texture().get_image().save_png("res://build/previews/folder-open.png")
+	ui.close_panel()
+	await create_timer(0.85).timeout
+	await RenderingServer.frame_post_draw
+	root.get_texture().get_image().save_png("res://build/previews/folder-returned.png")
 	print("Captured six rooms and door interaction")
 	quit(0)

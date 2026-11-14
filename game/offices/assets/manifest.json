@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "art_direction_brief": "game/offices/assets/README.md",
+  "assets": [
+    {
+      "id": "walnut",
+      "path": "game/offices/assets/textures/walnut.png",
+      "role": "wood material",
+      "status": "prototype",
+      "technical": {"dimensions": "1254x1254", "alpha": false, "frames": 1, "filtering": "linear_mipmap", "import_size_limit": 1024},
+      "source": {"kind": "generated", "url_or_tool": "imagegen", "created_at": "2026-11-14", "license": "Generated for this project; no third-party asset license asserted", "prompt_or_source_record": "README.md"},
+      "verification": {"in_engine_reviewed": true, "technical_checks_passed": true, "approved_by": "pending user review"}
+    },
+    {
+      "id": "plaster",
+      "path": "game/offices/assets/textures/plaster.png",
+      "role": "wall material",
+      "status": "prototype",
+      "technical": {"dimensions": "1254x1254", "alpha": false, "frames": 1, "filtering": "linear_mipmap", "import_size_limit": 1024},
+      "source": {"kind": "generated", "url_or_tool": "imagegen", "created_at": "2026-11-14", "license": "Generated for this project; no third-party asset license asserted", "prompt_or_source_record": "README.md"},
+      "verification": {"in_engine_reviewed": true, "technical_checks_passed": true, "approved_by": "pending user review"}
+    },
+    {
+      "id": "fabric",
+      "path": "game/offices/assets/textures/fabric.png",
+      "role": "upholstery and desk felt",
+      "status": "prototype",
+      "technical": {"dimensions": "1254x1254", "alpha": false, "frames": 1, "filtering": "linear_mipmap", "import_size_limit": 1024},
+      "source": {"kind": "generated", "url_or_tool": "imagegen", "created_at": "2026-11-14", "license": "Generated for this project; no third-party asset license asserted", "prompt_or_source_record": "README.md"},
+      "verification": {"in_engine_reviewed": true, "technical_checks_passed": true, "approved_by": "pending user review"}
+    },
+    {
+      "id": "district-map",
+      "path": "game/offices/assets/textures/district_map.png",
+      "role": "framed fictional map",
+      "status": "prototype",
+      "technical": {"dimensions": "1536x1024", "alpha": false, "frames": 1, "filtering": "linear_mipmap", "import_size_limit": 1024},
+      "source": {"kind": "generated", "url_or_tool": "imagegen", "created_at": "2026-11-14", "license": "Generated for this project; no third-party asset license asserted", "prompt_or_source_record": "README.md"},
+      "verification": {"in_engine_reviewed": true, "technical_checks_passed": true, "approved_by": "pending user review"}
+    }
+  ]
+}
