@@ -19,7 +19,7 @@ func capture() -> void:
 	root.add_child(ui)
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path("res://build/previews"))
 	for format_value in ["desktop","phone"]:
-		root.size=Vector2i(1280,800) if format_value=="desktop" else Vector2i(414,896)
+		root.size=Vector2i(1280,800) if format_value=="desktop" else Vector2i(393,852)
 		for index in 6:
 			ui.select_rank(index)
 			await shot("painted-%s-%d" % [format_value,index+1])

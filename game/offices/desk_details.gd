@@ -113,21 +113,8 @@ static func lamp(room: Node3D, at: Vector3) -> void:
 
 static func extras(room: Node3D, desk_at: Vector3, index: int) -> void:
 	var brass = room.material("#b59961")
-	# A thick enamel cup, rim, coffee surface and a real torus handle.
-	var cup := desk_at+Vector3(0.65,1.05,0.22)
-	room.cylinder(room,cup,0.09,0.2,room.material("#854a3d"))
-	room.cylinder(room,cup+Vector3(0,0.102,0),0.08,0.008,room.material("#3c2d25"))
-	var handle := MeshInstance3D.new()
-	var torus := TorusMesh.new()
-	torus.inner_radius=0.047
-	torus.outer_radius=0.065
-	torus.rings=16
-	torus.ring_segments=8
-	handle.mesh=torus
-	handle.material_override=room.material("#854a3d")
-	handle.position=cup+Vector3(0.09,0,0)
-	handle.rotation.x=PI/2.0
-	room.add_child(handle)
+	var props := preload("res://game/offices/ready_props.gd")
+	props.place(room,"cup-tea",desk_at+Vector3(0.65,0.95,0.22),0.18,-0.4)
 	var holder := desk_at+Vector3(0.16,1.055,-0.72)
 	room.cylinder(room,holder,0.067,0.21,room.material("#355e58"))
 	room.cylinder(room,holder+Vector3(0,0.108,0),0.057,0.006,room.material("#233d38"))
@@ -139,9 +126,7 @@ static func extras(room: Node3D, desk_at: Vector3, index: int) -> void:
 	for side in [-1,1]:
 		room.box(room,desk_at+Vector3(side*0.78,0.949,0.25),Vector3(0.009,0.003,1.66),brass)
 		room.box(room,desk_at+Vector3(0,0.949,0.25+side*0.82),Vector3(1.56,0.003,0.009),brass)
-	for i in 3:
-		var page = room.box(room,desk_at+Vector3(-0.68+i*0.012,0.951+i*0.004,0.28),Vector3(0.25,0.003,0.37),room.material("#dacbaa",0))
-		page.rotation.y = -0.14+i*0.03
+	props.place(room,"books",desk_at+Vector3(-0.75,0.95,0.28),0.12,-0.1)
 	# Back wall relief, a practical notice board, and plants vary by rank.
 	var spec: Dictionary = Catalog.ROOMS[index]
 	var back: float = spec.back

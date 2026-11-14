@@ -146,7 +146,7 @@ func build(index: int) -> void:
 			build_reception(wood, back, width)
 		5:
 			build_leader(wood, back, width)
-	var window_sizes := [Vector2(1.1,0.65),Vector2(1.45,0.9),Vector2(2.6,1.8),Vector2(4.2,2.6),Vector2(6.0,3.2),Vector2(8.2,4.0)]
+	var window_sizes := [Vector2(1.35,0.78),Vector2(1.45,0.9),Vector2(2.6,1.8),Vector2(4.2,2.6),Vector2(6.0,3.2),Vector2(8.2,4.0)]
 	var window_size: Vector2 = window_sizes[index]
 	var window_x: float = [-1.4,-0.8,-1.35,-0.8,2.0,-0.7][index]
 	back_window(Vector3(window_x,1.0+window_size.y/2.0,back+0.1),window_size.x,window_size.y)

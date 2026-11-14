@@ -40,7 +40,7 @@ func run() -> void:
 		views[vista] = true
 		check(FileAccess.file_exists(vista), "Missing painted view")
 	check(views.size() == 6, "Every career workplace needs its own exterior")
-	for dims in [Vector2i(360,640), Vector2i(414,896), Vector2i(1280,720), Vector2i(1920,1080), Vector2i(2560,1080)]:
+	for dims in [Vector2i(360,640), Vector2i(393,852), Vector2i(414,896), Vector2i(1280,720), Vector2i(1920,1080), Vector2i(2560,1080)]:
 		root.size = dims
 		await settle()
 		check(ui.scene_viewport.size == Vector2i(ui.scene_container.size), "3D viewport is not native resolution at %s: %s" % [dims,ui.scene_viewport.size])

@@ -15,13 +15,16 @@ static func place(room: Node3D, id: String, at: Vector3, height: float, angle: f
 				continue
 			var key := original.resource_name.to_lower()
 			var replacement: Material = room.material("#8e6c4d",0)
-			if "plant" in key:
+			if "colormap" in key:
+				replacement=null
+			elif "plant" in key:
 				replacement=room.material("#677c4e")
 			elif "carpet" in key:
 				replacement=room.material("#45605b",7)
 			elif "wood" in key and "plant" not in id.to_lower():
 				replacement=room.material("#76553b",1)
-			node.set_surface_override_material(surface_index,replacement)
+			if replacement != null:
+				node.set_surface_override_material(surface_index,replacement)
 		var box: AABB = (model.global_transform.affine_inverse()*node.global_transform)*node.get_aabb()
 		bounds = box if first else bounds.merge(box)
 		first=false
