@@ -151,8 +151,8 @@ for rank in range(FIRST,LAST+1):
 Созданы в Blender Cycles из фактической статичной геометрии Godot. Запечены базовый цвет, прямой и рассеянный свет, мягкие тени (Combined без зеркального вклада), 64 samples, по одной 2048px карте на комнату. Дверь, открывающаяся папка и настольные Blender-модели в этот световой атлас не входят. Экспорт glTF, отображение статичного интерьера unshaded, поэтому свет не умножается в движке повторно.
 
 Источник: tools/blender/export_room_inputs.gd → build/lighting-input/, затем tools/blender/bake_rooms.py. Редактируемые источники tools/blender/room-01.blend…room-06.blend. Исходные CC0-ассеты Kenney сохраняют свои лицензии, собственная геометрия и карты принадлежат проекту. После изменения статичной геометрии или света нужно повторное запекание; при удалении экспортов есть процедурный вариант помещения. Физический мобильный FPS отдельно не проверялся.
-''',encoding='utf-8')
+''',encoding='utf-8',newline='\n')
 
 source_state=json.loads((ROOT/'build/lighting-input/source-state.json').read_text(encoding='utf-8'))
 source_state.update({'bake':'Cycles Combined diffuse direct + indirect, 64 samples, 2048px', 'rooms':6, 'source':'Actual Godot geometry + original geometry + CC0 Kenney/Poly Haven'})
-(OUT/'manifest.json').write_text(json.dumps(source_state,indent=2),encoding='utf-8')
+(OUT/'manifest.json').write_text(json.dumps(source_state,indent=2),encoding='utf-8',newline='\n')

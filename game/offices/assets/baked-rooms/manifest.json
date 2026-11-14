@@ -31,11 +31,11 @@
     "game/offices/beveled_mesh.gd": "00af28f774d88d042d7bcd38178bb2faa9529c6ff11ea54ebc6c220dac4ea353",
     "game/offices/career_interior.gd": "a005c058d4ab07b471f619d49f20111c9c5c3df81661c04a35eb8cecab2b6d22",
     "game/offices/desk_details.gd": "d4858f47fb10157da3d299e2d7f0eb2521082e1a267dc77d63efd3a1cd3c8157",
-    "game/offices/interior_accents.gd": "dd77302052c7bb04b303b20882adeaf94bc6316cd57d741d6a7f1454dec8249c",
+    "game/offices/interior_accents.gd": "d9b1dbfca4c20420ca822f1fd204c47a04822fd5470ab278e5a79deed2add5fb",
     "game/offices/office_catalog.gd": "173887e8d683092c1034c5340b62a1df440a10d8a6b2ec8fec7972928a62b70c",
     "game/offices/office_scene.gd": "c51ede9faa388ea267d145aae16d86143e46fb2d74a0bd8dd0d052950ce71405",
     "game/offices/ready_props.gd": "5ad52c9a3caddc5092e119f56505355f98944b8ad4f18c086dec1d5c10f55df5",
-    "tools/blender/bake_rooms.py": "5024a2142a2fc6eda6b77339900bbe80def7c6902735c0c5dbde8cf81df0c787",
+    "tools/blender/bake_rooms.py": "4333bc2d3476ad0bbbfe07d647d6d44d4cedbf2249b301fcb5f87a1a0e65e327",
     "tools/blender/export_room_inputs.gd": "6e70d1adb8fec68066bc4503a48aba9c36a13c414e576713b56e40efb1325a56"
   },
   "bake": "Cycles Combined diffuse direct + indirect, 64 samples, 2048px",
