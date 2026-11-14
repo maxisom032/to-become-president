@@ -37,14 +37,14 @@
 				"baseColorTexture":{
 					"index":1
 				},
-				"metallicFactor":0.7200000286102295,
-				"roughnessFactor":0.27000001072883606
+				"metallicFactor":0.2800000011920929,
+				"roughnessFactor":0.4399999976158142
 			}
 		}
 	],
 	"meshes":[
 		{
-			"name":"Turned profile.025",
+			"name":"Turned profile.031",
 			"primitives":[
 				{
 					"attributes":{

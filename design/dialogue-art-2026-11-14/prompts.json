@@ -1,0 +1,100 @@
+{
+  "tool": "built-in image_gen",
+  "reference": "design/character-refinements/01-expressive.png",
+  "style": "Strictly hand-drawn flat 2D editorial caricature matching the reference: angular expressive faces, bold angular eyebrows, sculpted shapes made ONLY with ink and flat gouache color planes, warm ochre skin highlights, subtle printed paper grain, muted plum, ochre, teal and navy palette. Mature witty political story. No 3D, no CGI, no render, no photorealism. Fictional person, no real politician likeness.",
+  "characters": [
+    [
+      "01-elliot-finch",
+      "Elliot Finch, male around 33, thin, tousled chestnut hair, round glasses, olive cardigan over rumpled shirt, twirling pen."
+    ],
+    [
+      "02-vera-holt",
+      "Vera Holt, woman around 52, upright sturdy posture, short silver bob, plum blazer, eyeglasses on a chain. Aligning a small stack of blank documents with both hands. Precise composed expression."
+    ],
+    [
+      "03-marcus-rowe",
+      "Marcus Rowe, man around 41, broad shoulders, dark brown skin, short tight curls, rolled-up white shirt sleeves, ochre waistcoat. Both palms open in a practical welcoming explanatory gesture."
+    ],
+    [
+      "04-selma-crow",
+      "Selma Crow, woman around 45, elongated slim silhouette, straight black bob, teal pantsuit, thin eyeglasses. Holding a closed document folder delicately with her fingers, dry humorous attentive expression."
+    ],
+    [
+      "05-adrian-knox",
+      "Adrian Knox, tall man around 57, swept-back silver hair, burgundy suit, ochre necktie. Connecting fingertips in a steeple, polite knowing composed expression. Distinct from actual politicians."
+    ],
+    [
+      "06-cameron-still",
+      "Cameron Still, woman around 39, athletic upright posture, short dark hair with a prominent grey streak, navy blazer. Direct confident gaze, leaning slightly forward, hands loosely resting together."
+    ],
+    [
+      "07-nora-blake",
+      "Nora Blake, woman around 37, asymmetrical reddish bob, freckles, warm grey blazer. Pencil poised over a small notebook, inquisitive lively expression."
+    ],
+    [
+      "08-harold-price",
+      "Harold Price, man around 60, broad heavy silhouette, light balding head, grey-green suit, colorful pocket square. Slowly turning a teacup held in hands. Calm direct personable expression, not sinister."
+    ],
+    [
+      "09-iris-vale",
+      "Iris Vale, woman around 48, slender, dark hair tied up, charcoal suit, amber brooch. Closing a fountain pen cap with both hands, calm thoughtful decisive gaze."
+    ],
+    [
+      "10-ray-dalton",
+      "Ray Dalton, man around 44, average build, short neat haircut, sandy tan jacket over tidy collared shirt. Hands fully tucked into visible jacket pockets, knowing reserved conversational expression."
+    ],
+    [
+      "11-june-bell",
+      "June Bell, short woman around 62, grey curls, russet brown coat, cloth tote bag on shoulder. Holding small photographs of an ordinary community-center building with both hands, determined warm witty expression. No words on photos."
+    ]
+  ],
+  "backgrounds": [
+    [
+      "01-office",
+      "A modest warm political party office, wooden desk, paper folder, desk telephone, green desk lamp, bookcase and a single central door. Illustrated dialogue backdrop, not a replacement 3D room."
+    ],
+    [
+      "02-public-reception",
+      "A public community reception office, modest service desk at the side, waiting chairs, leaflet rack with plain colored papers, pinboard with blank notes, potted plant, welcoming daylight."
+    ],
+    [
+      "03-cafe",
+      "A cozy neighborhood cafe, small round tables at the sides, espresso counter, large window, warm morning light, teal chairs, ochre cups."
+    ],
+    [
+      "04-restaurant",
+      "An elegant discreet restaurant, burgundy upholstered booths, white tablecloths, small shaded table lamps, warm wood, evening amber light, no luxury excess."
+    ],
+    [
+      "05-bank",
+      "A professional bank meeting room, clean glass partitions, wood desk at side, two guest chairs, tidy shelves and a small desk calculator, restrained teal and cream."
+    ],
+    [
+      "06-tv-studio",
+      "A television interview studio, navy and teal flat scenic panels, two interview chairs and a small table, overhead softbox lights and a studio camera at one edge, no screens with text."
+    ],
+    [
+      "07-party-council",
+      "A formal party council conference room, oval wood conference table, empty chairs, plain burgundy and navy fabric panels without emblems, document folders and restrained warm light."
+    ],
+    [
+      "08-city-square",
+      "An American-inspired fictional city square for public speeches, civic brick buildings, trees, small empty speaking platform and microphone at one side, open sky, afternoon light. NO crowd."
+    ],
+    [
+      "09-community-hall",
+      "An indoor community meeting hall, rows of empty folding chairs, modest stage, noticeboard without writing, tall side windows, worn timber floor, warm approachable civic atmosphere. Clearly indoors."
+    ],
+    [
+      "10-service-parking",
+      "An outskirts service parking lot at dusk, few parked cars at edges, low warehouse buildings, wire fence, distant road, amber overhead lamps, muted plum twilight, quiet rather than threatening."
+    ],
+    [
+      "11-home",
+      "A modest lived-in home living room, comfortable armchair, side table, bookshelf, warm floor lamp, simple framed abstract pictures, evening window and a folded blanket, intimate welcoming atmosphere."
+    ]
+  ],
+  "portrait_constraints": "One waist-up character per transparent PNG, entire head, hair, elbows and hands inside frame. No text, UI or background. Reference for style only.",
+  "background_constraints": "One portrait 2:3 clean location, no people, text or UI. Quiet upper-middle area for character overlay. Flat hand-drawn gouache and paper texture, matching reference palette.",
+  "soft_constraints": "Edit sharp image only: uniform mild optical defocus, recognizable scene, identical framing, objects, colors and lighting. No objects added or removed."
+}

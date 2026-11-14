@@ -1,13 +1,11 @@
 [
   {
     "name": "phone-01",
-    "triangles": 9132,
+    "triangles": 8240,
     "atlas": "desk-baked-color-ao.png",
     "source": "Original Blender geometry, project-owned",
     "bake": "Cycles 24 samples, color + AO",
-    "uv": "joint non-overlapping smart projection",
-    "technical_checks_passed": true,
-    "checks": "Godot import, 2048px raster QA, native GPU captures, six-rank interaction/projection tests; physical mobile not tested"
+    "uv": "joint non-overlapping smart projection"
   },
   {
     "name": "lamp-01",
@@ -15,9 +13,7 @@
     "atlas": "desk-baked-color-ao.png",
     "source": "Original Blender geometry, project-owned",
     "bake": "Cycles 24 samples, color + AO",
-    "uv": "joint non-overlapping smart projection",
-    "technical_checks_passed": true,
-    "checks": "Godot import, 2048px raster QA, native GPU captures, six-rank interaction/projection tests; physical mobile not tested"
+    "uv": "joint non-overlapping smart projection"
   },
   {
     "name": "holder-01",
@@ -25,19 +21,15 @@
     "atlas": "desk-baked-color-ao.png",
     "source": "Original Blender geometry, project-owned",
     "bake": "Cycles 24 samples, color + AO",
-    "uv": "joint non-overlapping smart projection",
-    "technical_checks_passed": true,
-    "checks": "Godot import, 2048px raster QA, native GPU captures, six-rank interaction/projection tests; physical mobile not tested"
+    "uv": "joint non-overlapping smart projection"
   },
   {
     "name": "phone-02",
-    "triangles": 9132,
+    "triangles": 8240,
     "atlas": "desk-baked-color-ao.png",
     "source": "Original Blender geometry, project-owned",
     "bake": "Cycles 24 samples, color + AO",
-    "uv": "joint non-overlapping smart projection",
-    "technical_checks_passed": true,
-    "checks": "Godot import, 2048px raster QA, native GPU captures, six-rank interaction/projection tests; physical mobile not tested"
+    "uv": "joint non-overlapping smart projection"
   },
   {
     "name": "lamp-02",
@@ -45,9 +37,7 @@
     "atlas": "desk-baked-color-ao.png",
     "source": "Original Blender geometry, project-owned",
     "bake": "Cycles 24 samples, color + AO",
-    "uv": "joint non-overlapping smart projection",
-    "technical_checks_passed": true,
-    "checks": "Godot import, 2048px raster QA, native GPU captures, six-rank interaction/projection tests; physical mobile not tested"
+    "uv": "joint non-overlapping smart projection"
   },
   {
     "name": "holder-02",
@@ -55,19 +45,15 @@
     "atlas": "desk-baked-color-ao.png",
     "source": "Original Blender geometry, project-owned",
     "bake": "Cycles 24 samples, color + AO",
-    "uv": "joint non-overlapping smart projection",
-    "technical_checks_passed": true,
-    "checks": "Godot import, 2048px raster QA, native GPU captures, six-rank interaction/projection tests; physical mobile not tested"
+    "uv": "joint non-overlapping smart projection"
   },
   {
     "name": "phone-03",
-    "triangles": 9132,
+    "triangles": 8240,
     "atlas": "desk-baked-color-ao.png",
     "source": "Original Blender geometry, project-owned",
     "bake": "Cycles 24 samples, color + AO",
-    "uv": "joint non-overlapping smart projection",
-    "technical_checks_passed": true,
-    "checks": "Godot import, 2048px raster QA, native GPU captures, six-rank interaction/projection tests; physical mobile not tested"
+    "uv": "joint non-overlapping smart projection"
   },
   {
     "name": "lamp-03",
@@ -75,9 +61,7 @@
     "atlas": "desk-baked-color-ao.png",
     "source": "Original Blender geometry, project-owned",
     "bake": "Cycles 24 samples, color + AO",
-    "uv": "joint non-overlapping smart projection",
-    "technical_checks_passed": true,
-    "checks": "Godot import, 2048px raster QA, native GPU captures, six-rank interaction/projection tests; physical mobile not tested"
+    "uv": "joint non-overlapping smart projection"
   },
   {
     "name": "holder-03",
@@ -85,19 +69,15 @@
     "atlas": "desk-baked-color-ao.png",
     "source": "Original Blender geometry, project-owned",
     "bake": "Cycles 24 samples, color + AO",
-    "uv": "joint non-overlapping smart projection",
-    "technical_checks_passed": true,
-    "checks": "Godot import, 2048px raster QA, native GPU captures, six-rank interaction/projection tests; physical mobile not tested"
+    "uv": "joint non-overlapping smart projection"
   },
   {
     "name": "phone-04",
-    "triangles": 10636,
+    "triangles": 9368,
     "atlas": "desk-baked-color-ao.png",
     "source": "Original Blender geometry, project-owned",
     "bake": "Cycles 24 samples, color + AO",
-    "uv": "joint non-overlapping smart projection",
-    "technical_checks_passed": true,
-    "checks": "Godot import, 2048px raster QA, native GPU captures, six-rank interaction/projection tests; physical mobile not tested"
+    "uv": "joint non-overlapping smart projection"
   },
   {
     "name": "lamp-04",
@@ -105,9 +85,7 @@
     "atlas": "desk-baked-color-ao.png",
     "source": "Original Blender geometry, project-owned",
     "bake": "Cycles 24 samples, color + AO",
-    "uv": "joint non-overlapping smart projection",
-    "technical_checks_passed": true,
-    "checks": "Godot import, 2048px raster QA, native GPU captures, six-rank interaction/projection tests; physical mobile not tested"
+    "uv": "joint non-overlapping smart projection"
   },
   {
     "name": "holder-04",
@@ -115,29 +93,23 @@
     "atlas": "desk-baked-color-ao.png",
     "source": "Original Blender geometry, project-owned",
     "bake": "Cycles 24 samples, color + AO",
-    "uv": "joint non-overlapping smart projection",
-    "technical_checks_passed": true,
-    "checks": "Godot import, 2048px raster QA, native GPU captures, six-rank interaction/projection tests; physical mobile not tested"
+    "uv": "joint non-overlapping smart projection"
   },
   {
     "name": "phone-05",
-    "triangles": 12140,
+    "triangles": 9368,
     "atlas": "desk-baked-color-ao.png",
     "source": "Original Blender geometry, project-owned",
     "bake": "Cycles 24 samples, color + AO",
-    "uv": "joint non-overlapping smart projection",
-    "technical_checks_passed": true,
-    "checks": "Godot import, 2048px raster QA, native GPU captures, six-rank interaction/projection tests; physical mobile not tested"
+    "uv": "joint non-overlapping smart projection"
   },
   {
     "name": "lamp-05",
-    "triangles": 3206,
+    "triangles": 3616,
     "atlas": "desk-baked-color-ao.png",
     "source": "Original Blender geometry, project-owned",
     "bake": "Cycles 24 samples, color + AO",
-    "uv": "joint non-overlapping smart projection",
-    "technical_checks_passed": true,
-    "checks": "Godot import, 2048px raster QA, native GPU captures, six-rank interaction/projection tests; physical mobile not tested"
+    "uv": "joint non-overlapping smart projection"
   },
   {
     "name": "holder-05",
@@ -145,29 +117,23 @@
     "atlas": "desk-baked-color-ao.png",
     "source": "Original Blender geometry, project-owned",
     "bake": "Cycles 24 samples, color + AO",
-    "uv": "joint non-overlapping smart projection",
-    "technical_checks_passed": true,
-    "checks": "Godot import, 2048px raster QA, native GPU captures, six-rank interaction/projection tests; physical mobile not tested"
+    "uv": "joint non-overlapping smart projection"
   },
   {
     "name": "phone-06",
-    "triangles": 12140,
+    "triangles": 9368,
     "atlas": "desk-baked-color-ao.png",
     "source": "Original Blender geometry, project-owned",
     "bake": "Cycles 24 samples, color + AO",
-    "uv": "joint non-overlapping smart projection",
-    "technical_checks_passed": true,
-    "checks": "Godot import, 2048px raster QA, native GPU captures, six-rank interaction/projection tests; physical mobile not tested"
+    "uv": "joint non-overlapping smart projection"
   },
   {
     "name": "lamp-06",
-    "triangles": 3206,
+    "triangles": 3808,
     "atlas": "desk-baked-color-ao.png",
     "source": "Original Blender geometry, project-owned",
     "bake": "Cycles 24 samples, color + AO",
-    "uv": "joint non-overlapping smart projection",
-    "technical_checks_passed": true,
-    "checks": "Godot import, 2048px raster QA, native GPU captures, six-rank interaction/projection tests; physical mobile not tested"
+    "uv": "joint non-overlapping smart projection"
   },
   {
     "name": "holder-06",
@@ -175,8 +141,6 @@
     "atlas": "desk-baked-color-ao.png",
     "source": "Original Blender geometry, project-owned",
     "bake": "Cycles 24 samples, color + AO",
-    "uv": "joint non-overlapping smart projection",
-    "technical_checks_passed": true,
-    "checks": "Godot import, 2048px raster QA, native GPU captures, six-rank interaction/projection tests; physical mobile not tested"
+    "uv": "joint non-overlapping smart projection"
   }
 ]

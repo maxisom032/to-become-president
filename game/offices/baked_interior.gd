@@ -1,10 +1,10 @@
 extends RefCounted
 
-const SOURCES := ["game/offices/office_scene.gd","game/offices/career_interior.gd","game/offices/interior_accents.gd","game/offices/desk_details.gd","game/offices/ready_props.gd","game/offices/beveled_mesh.gd","game/offices/office_catalog.gd","tools/blender/export_room_inputs.gd","tools/blender/bake_rooms.py"]
+const SOURCES := ["game/offices/office_scene.gd","game/offices/career_interior.gd","game/offices/interior_accents.gd","game/offices/desk_details.gd","game/offices/ready_props.gd","game/offices/beveled_mesh.gd","game/offices/office_catalog.gd","game/offices/room_refinements.gd","tools/blender/export_room_inputs.gd","tools/blender/bake_rooms.py"]
 
 static func asset_hashes(result: Dictionary, directory: String) -> void:
 	for file in DirAccess.get_files_at("res://"+directory):
-		if file.get_extension().to_lower() in ["glb","gltf","bin","png","jpg","jpeg","exr"]:
+		if file.get_extension().to_lower() in ["glb","gltf","bin","png","jpg","jpeg","exr","svg"]:
 			var path := directory+"/"+file
 			result[path]=FileAccess.get_sha256("res://"+path)
 	for folder in DirAccess.get_directories_at("res://"+directory):
@@ -16,6 +16,7 @@ static func source_state() -> Dictionary:
 		result[path]=FileAccess.get_sha256("res://"+path)
 	asset_hashes(result,"game/offices/assets/kenney")
 	asset_hashes(result,"game/offices/assets/polyhaven")
+	asset_hashes(result,"game/offices/assets/rugs")
 	return result
 
 static func is_current() -> bool:

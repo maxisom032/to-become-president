@@ -1,0 +1,563 @@
+[
+  {
+    "file": "characters\\01-elliot-finch.png",
+    "size": [
+      1137,
+      1383
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "bounds": [
+      64,
+      0,
+      1101,
+      1369
+    ]
+  },
+  {
+    "file": "characters\\02-vera-holt.png",
+    "size": [
+      1199,
+      1312
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "bounds": [
+      0,
+      1,
+      1195,
+      1312
+    ]
+  },
+  {
+    "file": "characters\\03-marcus-rowe.png",
+    "size": [
+      1374,
+      1145
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "bounds": [
+      0,
+      16,
+      1358,
+      1145
+    ]
+  },
+  {
+    "file": "characters\\04-selma-crow.png",
+    "size": [
+      1086,
+      1448
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "bounds": [
+      0,
+      15,
+      1070,
+      1448
+    ]
+  },
+  {
+    "file": "characters\\05-adrian-knox.png",
+    "size": [
+      1086,
+      1448
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "bounds": [
+      61,
+      20,
+      1072,
+      1433
+    ]
+  },
+  {
+    "file": "characters\\06-cameron-still.png",
+    "size": [
+      1136,
+      1385
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "bounds": [
+      0,
+      39,
+      1110,
+      1359
+    ]
+  },
+  {
+    "file": "characters\\07-nora-blake.png",
+    "size": [
+      1122,
+      1402
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "bounds": [
+      0,
+      13,
+      1108,
+      1402
+    ]
+  },
+  {
+    "file": "characters\\08-harold-price.png",
+    "size": [
+      1167,
+      1347
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "bounds": [
+      0,
+      21,
+      1167,
+      1347
+    ]
+  },
+  {
+    "file": "characters\\09-iris-vale.png",
+    "size": [
+      1190,
+      1322
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "bounds": [
+      65,
+      12,
+      1082,
+      1309
+    ]
+  },
+  {
+    "file": "characters\\10-ray-dalton.png",
+    "size": [
+      1111,
+      1416
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "bounds": [
+      0,
+      60,
+      1071,
+      1416
+    ]
+  },
+  {
+    "file": "characters\\11-june-bell.png",
+    "size": [
+      1268,
+      1241
+    ],
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "bounds": [
+      49,
+      5,
+      1224,
+      1241
+    ]
+  },
+  {
+    "file": "backgrounds\\01-office-sharp.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "bounds": [
+      0,
+      0,
+      1024,
+      1536
+    ]
+  },
+  {
+    "file": "backgrounds\\01-office-soft.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "bounds": [
+      0,
+      0,
+      1024,
+      1536
+    ]
+  },
+  {
+    "file": "backgrounds\\02-public-reception-sharp.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "bounds": [
+      0,
+      0,
+      1024,
+      1536
+    ]
+  },
+  {
+    "file": "backgrounds\\02-public-reception-soft.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "bounds": [
+      0,
+      0,
+      1024,
+      1536
+    ]
+  },
+  {
+    "file": "backgrounds\\03-cafe-sharp.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "bounds": [
+      0,
+      0,
+      1024,
+      1536
+    ]
+  },
+  {
+    "file": "backgrounds\\03-cafe-soft.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "bounds": [
+      0,
+      0,
+      1024,
+      1536
+    ]
+  },
+  {
+    "file": "backgrounds\\04-restaurant-sharp.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "bounds": [
+      0,
+      0,
+      1024,
+      1536
+    ]
+  },
+  {
+    "file": "backgrounds\\04-restaurant-soft.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "bounds": [
+      0,
+      0,
+      1024,
+      1536
+    ]
+  },
+  {
+    "file": "backgrounds\\05-bank-sharp.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "bounds": [
+      0,
+      0,
+      1024,
+      1536
+    ]
+  },
+  {
+    "file": "backgrounds\\05-bank-soft.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "bounds": [
+      0,
+      0,
+      1024,
+      1536
+    ]
+  },
+  {
+    "file": "backgrounds\\06-tv-studio-sharp.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "bounds": [
+      0,
+      0,
+      1024,
+      1536
+    ]
+  },
+  {
+    "file": "backgrounds\\06-tv-studio-soft.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "bounds": [
+      0,
+      0,
+      1024,
+      1536
+    ]
+  },
+  {
+    "file": "backgrounds\\07-party-council-sharp.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "bounds": [
+      0,
+      0,
+      1024,
+      1536
+    ]
+  },
+  {
+    "file": "backgrounds\\07-party-council-soft.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "bounds": [
+      0,
+      0,
+      1024,
+      1536
+    ]
+  },
+  {
+    "file": "backgrounds\\08-city-square-sharp.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "bounds": [
+      0,
+      0,
+      1024,
+      1536
+    ]
+  },
+  {
+    "file": "backgrounds\\08-city-square-soft.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "bounds": [
+      0,
+      0,
+      1024,
+      1536
+    ]
+  },
+  {
+    "file": "backgrounds\\09-community-hall-sharp.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "bounds": [
+      0,
+      0,
+      1024,
+      1536
+    ]
+  },
+  {
+    "file": "backgrounds\\09-community-hall-soft.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "bounds": [
+      0,
+      0,
+      1024,
+      1536
+    ]
+  },
+  {
+    "file": "backgrounds\\10-service-parking-sharp.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "bounds": [
+      0,
+      0,
+      1024,
+      1536
+    ]
+  },
+  {
+    "file": "backgrounds\\10-service-parking-soft.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "bounds": [
+      0,
+      0,
+      1024,
+      1536
+    ]
+  },
+  {
+    "file": "backgrounds\\11-home-sharp.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "bounds": [
+      0,
+      0,
+      1024,
+      1536
+    ]
+  },
+  {
+    "file": "backgrounds\\11-home-soft.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "bounds": [
+      0,
+      0,
+      1024,
+      1536
+    ]
+  }
+]

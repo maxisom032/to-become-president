@@ -17,9 +17,9 @@ static func lettering(room: Node3D, parent: Node3D, value: String, at: Vector3, 
 static func folder(room: Node3D, at: Vector3) -> Node3D:
 	var base := Node3D.new()
 	base.position = at
-	base.rotation.y = -0.045
+	base.rotation.y = 0.12
 	room.add_child(base)
-	var kraft = room.material("#733d2e",7)
+	var kraft = room.material("#ad855a",0)
 	room.box(base,Vector3(0,-0.016,0),Vector3(0.77,0.025,0.87),kraft)
 	for i in 6:
 		room.box(base,Vector3(sin(i*2.0)*0.008,i*0.006,0),Vector3(0.69,0.004,0.8),room.material("#ecdfbc",0))
@@ -33,12 +33,9 @@ static func folder(room: Node3D, at: Vector3) -> Node3D:
 	hinge.position = Vector3(-0.385,0.052,0)
 	base.add_child(hinge)
 	room.box(hinge,Vector3(0.385,0,0),Vector3(0.77,0.012,0.87),kraft)
-	for side in [-1,1]:
-		room.box(hinge,Vector3(0.385+side*0.35,0.009,0),Vector3(0.003,0.002,0.8),room.material("#b8985a"))
-		room.box(hinge,Vector3(0.385,0.009,side*0.4),Vector3(0.7,0.002,0.003),room.material("#b8985a"))
-	room.box(hinge,Vector3(0.385,0.009,-0.05),Vector3(0.55,0.002,0.31),room.material("#ddc494",0))
-	lettering(room,hinge,"РАБОЧЕЕ ДЕЛО",Vector3(0.385,0.013,-0.07),0.00072)
-	lettering(room,hinge,"АППАРАТ ПАРТИИ  /  001",Vector3(0.385,0.013,0.035),0.00038)
+	room.box(hinge,Vector3(0.385,0.009,-0.05),Vector3(0.40,0.002,0.25),room.material("#ddc494",0))
+	lettering(room,hinge,"ДЕЛО № 001",Vector3(0.385,0.013,-0.07),0.00067)
+	lettering(room,hinge,"АППАРАТ ПАРТИИ",Vector3(0.385,0.013,0.035),0.00038)
 	for z in [-0.24,0.24]:
 		var ring_mesh := TorusMesh.new()
 		ring_mesh.inner_radius = 0.018
@@ -68,7 +65,7 @@ static func lamp(room: Node3D, at: Vector3) -> void:
 static func extras(room: Node3D, desk_at: Vector3, index: int) -> void:
 	var brass = room.material("#b59961")
 	var props := preload("res://game/offices/ready_props.gd")
-	props.place(room,"cup-tea",desk_at+Vector3(0.94,0.95,0.05),0.18,-0.4)
+	props.place(room,"cup-tea",desk_at+Vector3(0.88,0.95,0.05),0.18,-0.4)
 	var holder := desk_at+Vector3(0.16,1.055,-0.72)
 	preload("res://game/offices/crafted_props.gd").place(room,"holder",holder-Vector3(0,0.105,0))
 	for i in 5:
@@ -77,9 +74,9 @@ static func extras(room: Node3D, desk_at: Vector3, index: int) -> void:
 		pen.rotation.x=(i%2)*0.1
 	# Felt edge binding and several loose documents add table scale.
 	for side in [-1,1]:
-		room.box(room,desk_at+Vector3(side*0.78,0.949,0.25),Vector3(0.009,0.003,1.66),brass)
-		room.box(room,desk_at+Vector3(0,0.949,0.25+side*0.82),Vector3(1.56,0.003,0.009),brass)
-	props.place(room,"books",desk_at+Vector3(-0.93,0.95,0.09),0.12,-0.1)
+		room.box(room,desk_at+Vector3(side*0.88,0.949,0.04),Vector3(0.009,0.003,1.26),brass)
+		room.box(room,desk_at+Vector3(0,0.949,0.04+side*0.63),Vector3(1.76,0.003,0.009),brass)
+	props.place(room,"books",desk_at+Vector3(-0.86,0.95,0.09),0.12,-0.1)
 	var stamp := desk_at+Vector3(-0.58,0.97,0.59)
 	room.cylinder(room,stamp,0.075,0.035,room.material("#ba9652"))
 	room.cylinder(room,stamp+Vector3(0,0.07,0),0.035,0.12,room.material("#633b28",1))

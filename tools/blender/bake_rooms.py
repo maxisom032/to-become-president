@@ -56,8 +56,8 @@ def prepare_material(mat):
         links.new(geo.outputs['Position'],mapping.inputs[0]);links.new(mapping.outputs[0],noise.inputs['Vector'])
         noise.inputs['Scale'].default_value=2.4
     ramp=nodes.new('ShaderNodeValToRGB')
-    ramp.color_ramp.elements[0].color=tuple(v*(.67 if wood_kind else .88) for v in base[:3])+(1,)
-    ramp.color_ramp.elements[1].color=tuple(min(1,v*(1.3 if wood_kind else 1.08)) for v in base[:3])+(1,)
+    ramp.color_ramp.elements[0].color=tuple(v*(.85 if wood_kind else .97) for v in base[:3])+(1,)
+    ramp.color_ramp.elements[1].color=tuple(min(1,v*(1.12 if wood_kind else 1.03)) for v in base[:3])+(1,)
     links.new(noise.outputs['Fac'],ramp.inputs['Fac'])
     links.new(ramp.outputs['Color'],shader.inputs['Base Color'])
     if '-wallpaper' in mat.name and mat.name.split('-wallpaper')[1][0]!='0':
@@ -111,11 +111,11 @@ for rank in range(FIRST,LAST+1):
     except Exception as error:
         print('GPU fallback',error,flush=True);scene.cycles.device='CPU'
     height=HEIGHTS[rank-1];back=BACKS[rank-1]
-    area('Soft desk-side key',(-1.5,2.9,2.7),(0,1.0,-1.3),350,2.0,(1,.79,.53))
-    area('Broad front fill',(1.0,2.8,3.3),(0,1.4,back),130,2.5,(1,.88,.71))
-    area('Pendant diffuse',(0,height-.55,back+1.7),(0,0,back+1.7),120,.8,(1,.76,.42))
+    area('Soft desk-side key',(-1.5,2.9,2.7),(0,1.0,-1.3),235,2.2,(1,.79,.53))
+    area('Broad front fill',(1.0,2.8,3.3),(0,1.4,back),80,2.5,(1,.88,.71))
+    area('Pendant diffuse',(0,height-.55,back+1.7),(0,0,back+1.7),60,1.0,(1,.76,.42))
     if rank>=5:
-        area('Window daylight',(-2.3,2.1,back+.8),(0,1,-1.2),160,1.8,(.77,.87,1))
+        area('Window daylight',(-2.3,2.1,back+.8),(0,1,-1.2),110,1.8,(.77,.87,1))
     image=bpy.data.images.new(f'room-{rank:02}-light-color',width=2048,height=2048,alpha=False,float_buffer=False)
     for slot in obj.material_slots:
         mat=slot.material
