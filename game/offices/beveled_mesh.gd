@@ -43,6 +43,7 @@ static func create(dimensions: Vector3) -> ArrayMesh:
 		for sy in [-1.0, 1.0]:
 			for sz in [-1.0, 1.0]:
 				face(st, [Vector3(sx*h.x,sy*inner.y,sz*inner.z), Vector3(sx*inner.x,sy*h.y,sz*inner.z), Vector3(sx*inner.x,sy*inner.y,sz*h.z)])
+	st.generate_tangents()
 	var result := st.commit()
 	cache[key] = result
 	return result

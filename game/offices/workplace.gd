@@ -3,6 +3,7 @@ extends Control
 const OfficeScene := preload("res://game/offices/office_scene.gd")
 const Catalog := preload("res://game/offices/office_catalog.gd")
 const Profile := preload("res://game/offices/profile.gd")
+const PresentationLayout := preload("res://game/offices/presentation_layout.gd")
 var office: Node3D
 var profile = Profile.new()
 var rank_index := 0
@@ -20,17 +21,31 @@ var footer: Control
 var modal_shade: ColorRect
 var modal_margin: MarginContainer
 var reader_scroll: ScrollContainer
+var scene_viewport: SubViewport
+var hud_layer: Control
+var modal_panel: PanelContainer
+var screen_button: Button
+var scene_container: SubViewportContainer
 
 func _ready() -> void:
+	# The world is rendered at the real window size; only UI controls scale.
+	get_window().content_scale_size = Vector2i.ZERO
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_STOP
+	var background := ColorRect.new()
+	background.color=Color("#192c2c")
+	background.mouse_filter=Control.MOUSE_FILTER_IGNORE
+	add_child(background)
+	background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var container := SubViewportContainer.new()
+	scene_container = container
 	container.stretch = true
 	container.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(container)
 	container.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var viewport := SubViewport.new()
-	viewport.size = Vector2i(414, 780)
+	scene_viewport = viewport
+	viewport.size = Vector2i(size)
 	viewport.msaa_3d = Viewport.MSAA_4X
 	viewport.own_world_3d = true
 	container.add_child(viewport)
@@ -38,6 +53,26 @@ func _ready() -> void:
 	viewport.add_child(office)
 	build_interface()
 	select_rank(0)
+	resized.connect(apply_layout)
+	apply_layout.call_deferred()
+
+func apply_layout() -> void:
+	PresentationLayout.apply(self)
+
+func scene_to_ui(point: Vector2) -> Vector2:
+	return scene_container.position+point
+
+func ui_to_scene(point: Vector2) -> Vector2:
+	return point-scene_container.position
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_F11:
+		toggle_fullscreen()
+		get_viewport().set_input_as_handled()
+
+func toggle_fullscreen() -> void:
+	var fullscreen := DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN
+	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED if fullscreen else DisplayServer.WINDOW_MODE_FULLSCREEN)
 
 func surface(color: String, border: String = "#a5916e") -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
@@ -67,6 +102,7 @@ func button(parent: Node, title: String, callback: Callable) -> Button:
 	item.text = title
 	item.custom_minimum_size.y = 44
 	item.add_theme_font_size_override("font_size", 16)
+	item.add_theme_font_override("font", preload("res://game/art/fonts/PTSerif-Regular.ttf"))
 	item.add_theme_color_override("font_color", Color("#f3e6c8"))
 	item.add_theme_stylebox_override("normal", surface("#3d5f5b", "#6c8174"))
 	item.add_theme_stylebox_override("hover", surface("#52766b"))
@@ -76,24 +112,34 @@ func button(parent: Node, title: String, callback: Callable) -> Button:
 	return item
 
 func build_interface() -> void:
+	hud_layer = Control.new()
+	hud_layer.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(hud_layer)
+	var ui_theme := Theme.new()
+	ui_theme.default_font = preload("res://game/art/fonts/PTSerif-Regular.ttf")
+	ui_theme.default_font_size = 16
+	for state in ["normal","hover","pressed","focus"]:
+		ui_theme.set_stylebox(state,"OptionButton",surface("#304742","#8c805d"))
+	ui_theme.set_color("font_color","OptionButton",Color("#f1e4c7"))
+	hud_layer.theme = ui_theme
 	var top := PanelContainer.new()
 	hud = top
 	top.add_theme_stylebox_override("panel", surface("#f0e3c7"))
-	add_child(top)
+	hud_layer.add_child(top)
 	top.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
 	top.offset_left = 10
 	top.offset_right = -10
 	top.offset_top = 10
-	var top_style := surface("#f0e3c7")
+	var top_style := surface("#1f3332ed", "#9a8357")
 	top_style.content_margin_top = 6
 	top_style.content_margin_bottom = 6
 	top.add_theme_stylebox_override("panel", top_style)
 	var column := VBoxContainer.new()
 	column.add_theme_constant_override("separation", 5)
 	top.add_child(column)
-	header_name = text(column, profile.full_name, 18)
+	header_name = text(column, profile.full_name, 18, "#f0dfba")
 	location_label = text(column, "", 14, "#6c6757")
-	location_label.hide()
+	location_label.add_theme_color_override("font_color",Color("#c8bb99"))
 	var row := HBoxContainer.new()
 	column.add_child(row)
 	rank_select = OptionButton.new()
@@ -114,7 +160,7 @@ func build_interface() -> void:
 	var bottom := PanelContainer.new()
 	footer = bottom
 	bottom.add_theme_stylebox_override("panel", surface("#243e3c", "#7e927e"))
-	add_child(bottom)
+	hud_layer.add_child(bottom)
 	bottom.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
 	bottom.offset_left = 10
 	bottom.offset_right = -10
@@ -132,7 +178,7 @@ func build_interface() -> void:
 		item.add_theme_font_size_override("font_size", 13)
 		item.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	modal = Control.new()
-	add_child(modal)
+	hud_layer.add_child(modal)
 	modal.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	modal.mouse_filter = Control.MOUSE_FILTER_STOP
 	var shade := ColorRect.new()
@@ -150,6 +196,7 @@ func build_interface() -> void:
 	margin.add_theme_constant_override("margin_top", 185)
 	margin.add_theme_constant_override("margin_bottom", 90)
 	var panel := PanelContainer.new()
+	modal_panel = panel
 	panel.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	panel.add_theme_stylebox_override("panel", surface("#f1e6ce"))
 	margin.add_child(panel)
@@ -167,6 +214,7 @@ func build_interface() -> void:
 	sheet.add_theme_constant_override("separation", 10)
 	scroll.add_child(sheet)
 	modal.hide()
+	screen_button = button(hud_layer,"Полный экран · F11",toggle_fullscreen)
 
 func new_profile() -> void:
 	profile = Profile.new()
@@ -178,21 +226,21 @@ func select_rank(index: int) -> void:
 	office.build(rank_index)
 	if rank_select != null:
 		rank_select.select(rank_index)
-		location_label.text = Catalog.ROOMS[rank_index].title + " • прототип 3D-кабинетов"
+		location_label.text = Catalog.ROOMS[rank_index].title + " · этаж " + str([2,4,7,11,17,24][rank_index])
 
 func _gui_input(event: InputEvent) -> void:
 	if not active_panel.is_empty():
 		return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		var id: String = office.pick_object(event.position)
+		var id: String = office.pick_object(ui_to_scene(event.position))
 		if not id.is_empty():
 			open_interaction(id)
 	if event is InputEventScreenTouch and event.pressed:
-		var id: String = office.pick_object(event.position)
+		var id: String = office.pick_object(ui_to_scene(event.position))
 		if not id.is_empty():
 			open_interaction(id)
 	if event is InputEventMouseMotion:
-		var id: String = office.pick_object(event.position)
+		var id: String = office.pick_object(ui_to_scene(event.position))
 		var titles := {"folder": "Папка • поручение и биография", "phone": "Телефон • связаться с помощником", "agenda": "Ежедневник • доступные люди", "door": "Дверь • дела вне кабинета"}
 		hint.text = titles.get(id, "Нажми на папку, телефон, ежедневник или дверь")
 		mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND if not id.is_empty() else Control.CURSOR_ARROW
@@ -213,9 +261,7 @@ func open_interaction(id: String) -> void:
 	active_panel = id
 	modal.visible = id != "folder"
 	modal_shade.color.a = 0.1 if id == "folder" else 0.62
-	modal_margin.add_theme_constant_override("margin_top", mini(350, maxi(230,int(size.y)-390)) if id == "folder" else 185)
-	modal_margin.add_theme_constant_override("margin_bottom", 30 if id == "folder" else 90)
-	reader_scroll.custom_minimum_size.y = minf(260, size.y-350) if id == "folder" else minf(330,size.y-340)
+	apply_layout()
 	if id == "folder":
 		hud.hide()
 		footer.hide()
@@ -304,3 +350,5 @@ func close_panel() -> void:
 		office.return_to_desk()
 	if office != null and office.door_hinge != null and office.opened:
 		office.animate_door(false)
+	if hud_layer != null and screen_button != null:
+		apply_layout()

@@ -19,7 +19,7 @@ static func folder(room: Node3D, at: Vector3) -> Node3D:
 	base.position = at
 	base.rotation.y = -0.045
 	room.add_child(base)
-	var kraft = room.material("#ab794c", 0)
+	var kraft = room.material("#ab794c", 0) if room.room_index < 2 else room.material("#633d34" if room.room_index<5 else "#344d55",7)
 	room.box(base,Vector3(0,-0.016,0),Vector3(0.77,0.025,0.87),kraft)
 	for i in 6:
 		room.box(base,Vector3(sin(i*2.0)*0.008,i*0.006,0),Vector3(0.69,0.004,0.8),room.material("#ecdfbc",0))
@@ -33,6 +33,10 @@ static func folder(room: Node3D, at: Vector3) -> Node3D:
 	hinge.position = Vector3(-0.385,0.052,0)
 	base.add_child(hinge)
 	room.box(hinge,Vector3(0.385,0,0),Vector3(0.77,0.012,0.87),kraft)
+	if room.room_index >= 2:
+		for side in [-1,1]:
+			room.box(hinge,Vector3(0.385+side*0.35,0.009,0),Vector3(0.003,0.002,0.8),room.material("#b8985a"))
+			room.box(hinge,Vector3(0.385,0.009,side*0.4),Vector3(0.7,0.002,0.003),room.material("#b8985a"))
 	room.box(hinge,Vector3(0.385,0.009,-0.05),Vector3(0.55,0.002,0.31),room.material("#ddc494",0))
 	lettering(room,hinge,"РАБОЧЕЕ ДЕЛО",Vector3(0.385,0.013,-0.07),0.00072)
 	lettering(room,hinge,"АППАРАТ ПАРТИИ  /  001",Vector3(0.385,0.013,0.035),0.00038)
@@ -73,6 +77,40 @@ static func phone(room: Node3D, at: Vector3) -> void:
 		var p := Vector3(-0.23+sin(i*1.8)*0.017,0.015-i*0.003,-0.12+i*0.014)
 		room.cylinder(root,p,0.009,0.014,dark).rotation.x = PI/2.0
 
+static func lamp(room: Node3D, at: Vector3) -> void:
+	var brass = room.material("#ba9652")
+	room.cylinder(room,at,0.13,0.026,brass)
+	room.cylinder(room,at+Vector3(0,0.027,0),0.105,0.024,brass)
+	room.cylinder(room,at+Vector3(0,0.21,0),0.014,0.38,brass)
+	room.cylinder(room,at+Vector3(0,0.37,0),0.033,0.04,brass)
+	var shade := SurfaceTool.new()
+	shade.begin(Mesh.PRIMITIVE_TRIANGLES)
+	for segment in 20:
+		var a := PI*segment/20.0
+		var b := PI*(segment+1)/20.0
+		var points := [Vector3(-0.24,sin(a)*0.13,cos(a)*0.13),Vector3(0.24,sin(a)*0.13,cos(a)*0.13),Vector3(0.24,sin(b)*0.13,cos(b)*0.13),Vector3(-0.24,sin(b)*0.13,cos(b)*0.13)]
+		for j in [0,2,1,0,3,2]:
+			var p: Vector3 = points[j]
+			shade.set_normal(Vector3(0,p.y,p.z).normalized())
+			shade.add_vertex(p)
+	var hood := MeshInstance3D.new()
+	hood.mesh=shade.commit()
+	hood.position=at+Vector3(0,0.39,0)
+	var glass := StandardMaterial3D.new()
+	glass.albedo_color=Color("#2e5544" if room.room_index<4 else "#b38b46")
+	glass.roughness=0.22
+	glass.metallic=0.12
+	glass.cull_mode=BaseMaterial3D.CULL_DISABLED
+	hood.material_override=glass
+	room.add_child(hood)
+	room.box(room,at+Vector3(0,0.388,0),Vector3(0.47,0.013,0.24),room.material("#e1c78b"))
+	var glow := OmniLight3D.new()
+	glow.position=at+Vector3(0,0.31,-0.01)
+	glow.light_color=Color("#ffd18b")
+	glow.light_energy=0.15
+	glow.omni_range=1.4
+	room.add_child(glow)
+
 static func extras(room: Node3D, desk_at: Vector3, index: int) -> void:
 	var brass = room.material("#b59961")
 	# A thick enamel cup, rim, coffee surface and a real torus handle.
@@ -90,7 +128,7 @@ static func extras(room: Node3D, desk_at: Vector3, index: int) -> void:
 	handle.position=cup+Vector3(0.09,0,0)
 	handle.rotation.x=PI/2.0
 	room.add_child(handle)
-	var holder := desk_at+Vector3(0.75,1.055,-0.5)
+	var holder := desk_at+Vector3(0.16,1.055,-0.72)
 	room.cylinder(room,holder,0.067,0.21,room.material("#355e58"))
 	room.cylinder(room,holder+Vector3(0,0.108,0),0.057,0.006,room.material("#233d38"))
 	for i in 5:
@@ -107,36 +145,15 @@ static func extras(room: Node3D, desk_at: Vector3, index: int) -> void:
 	# Back wall relief, a practical notice board, and plants vary by rank.
 	var spec: Dictionary = Catalog.ROOMS[index]
 	var back: float = spec.back
-	var dx: float = [0.15,1.0,2.15,2.25,-1.0,2.75][index]
+	var dx: float = [0.15,1.0,2.15,3.6,-3.8,5.5][index]
 	for side in [-1,1]:
 		var edge := -float(spec.width)/2.0 if side<0 else float(spec.width)/2.0
 		var inner := dx-0.65 if side<0 else dx+0.65
-		room.box(room,Vector3((edge+inner)/2.0,0.42,back+0.1),Vector3(absf(edge-inner),0.84,0.08),room.material("#765739",1))
+		room.box(room,Vector3((edge+inner)/2.0,0.42,back+0.1),Vector3(absf(edge-inner),0.84,0.08),room.material("#713e34",0) if index==1 else room.material("#765739",1))
 		room.box(room,Vector3((edge+inner)/2.0,0.87,back+0.14),Vector3(absf(edge-inner),0.055,0.13),brass)
 	plant(room,Vector3(-1.1,0.95,0.9),0.45)
 	if index>0:
 		plant(room,Vector3(-float(spec.width)/2.0+0.48,0,back+0.65),1.25)
 
 static func plant(room: Node3D, at: Vector3, scale_value: float) -> void:
-	var root := Node3D.new()
-	root.position=at
-	root.scale=Vector3.ONE*scale_value
-	room.add_child(root)
-	room.cylinder(root,Vector3(0,0.15,0),0.16,0.3,room.material("#aa7656"))
-	room.cylinder(root,Vector3(0,0.305,0),0.145,0.008,room.material("#44372a"))
-	for i in 9:
-		var angle := i*2.4
-		var stem = room.cylinder(root,Vector3(sin(angle)*0.07,0.54,cos(angle)*0.07),0.007,0.5,room.material("#4b6142"))
-		stem.rotation.z=sin(angle)*0.23
-		var leaf_mesh := SphereMesh.new()
-		leaf_mesh.radius=0.12
-		leaf_mesh.height=0.24
-		leaf_mesh.radial_segments=10
-		leaf_mesh.rings=6
-		var leaf := MeshInstance3D.new()
-		leaf.mesh=leaf_mesh
-		leaf.material_override=room.material(["#536e42","#738149","#3e5b43"][i%3])
-		leaf.position=Vector3(sin(angle)*0.17,0.65+(i%3)*0.08,cos(angle)*0.17)
-		leaf.scale=Vector3(1.0,0.32,1.8)
-		leaf.rotation_degrees=Vector3(15+i*8,i*137,20)
-		root.add_child(leaf)
+	preload("res://game/offices/ready_props.gd").place(room,"plantSmall3" if scale_value<1.0 else "pottedPlant",at,scale_value*0.85)

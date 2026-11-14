@@ -11,22 +11,30 @@ void vertex(){
 void fragment(){
 	vec3 n = abs(normalize(face_normal));
 	vec2 p = n.y > 0.65 ? point.xz : (n.z > n.x ? point.xy : point.zy);
-	vec2 uv = p * (surface_kind == 1 || surface_kind == 2 ? vec2(0.38,0.6) : vec2(1.0));
+	vec2 uv = p * (surface_kind == 1 || surface_kind == 2 ? vec2(0.9,0.8) : vec2(1.1));
 	vec3 sample_color = texture(surface_tex, uv).rgb;
+	float value = dot(sample_color,vec3(0.2126,0.7152,0.0722));
 	if(surface_kind == 1 || surface_kind == 2){
-		ALBEDO = mix(tint.rgb, sample_color, 0.35) * 0.65;
+		float grain = clamp(value / 0.125,0.35,2.3);
+		ALBEDO = tint.rgb * mix(1.0,grain,0.85);
 		if(surface_kind == 2 && n.y > 0.65){
 			float board = floor(p.x * 3.5);
 			float seam = smoothstep(0.0,0.012,min(fract(p.x*3.5),1.0-fract(p.x*3.5)));
 			float join = smoothstep(0.0,0.006,min(fract(p.y*0.7+board*0.37),1.0-fract(p.y*0.7+board*0.37)));
 			ALBEDO *= 0.72 + 0.28*min(seam,join);
 		}
-		ROUGHNESS = surface_kind == 1 ? 0.48 : 0.72;
-		SPECULAR = 0.35;
+		ROUGHNESS = (surface_kind == 1 ? 0.36 : 0.62)+value*0.18;
+		SPECULAR = 0.5;
 	}else{
-		float grain = dot(sample_color,vec3(0.333));
-		ALBEDO = tint.rgb * (0.67 + grain * 0.55);
-		ROUGHNESS = 0.94;
-		SPECULAR = 0.12;
+		float grain = clamp(value/(surface_kind == 0 ? 0.53 : 0.18),0.45,1.6);
+		ALBEDO = tint.rgb * mix(1.0,grain,0.7);
+		ROUGHNESS = surface_kind == 4 ? 0.62 : 0.88;
+		SPECULAR = surface_kind == 4 ? 0.42 : 0.18;
 	}
+	// Fine bump is derived in the shader; no extra geometry is needed.
+	vec2 step_uv = vec2(1.0) / vec2(textureSize(surface_tex,0));
+	float right = dot(texture(surface_tex,uv+vec2(step_uv.x,0.0)).rgb,vec3(0.2126,0.7152,0.0722));
+	float up = dot(texture(surface_tex,uv+vec2(0.0,step_uv.y)).rgb,vec3(0.2126,0.7152,0.0722));
+	vec3 bump = normalize(vec3((value-right)*0.7,(value-up)*0.7,1.0));
+	NORMAL_MAP = bump*0.5+0.5;
 }

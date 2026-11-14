@@ -1,0 +1,83 @@
+[
+  {
+    "id": "01-courtyard",
+    "prompt": "Use case: stylized-concept. Asset type: high-resolution painted exterior view texture seen THROUGH an office window in a real 3D political career game. The two reference images are STYLE REFERENCES only: copy their warm sophisticated hand-painted 3D environment art direction, convincing architectural volume, soft painterly surface textures, golden afternoon light, blue-grey shaded stone, ochre foliage and cream clouds. Create a standalone seamless-looking vista with no office interior, no window frame, no room, no UI, no labels, no numbers, no border, no text, no watermark. Landscape composition 2048x1536 or higher, crisp legible architecture, atmospheric perspective with at least three depth layers, interesting varied rooflines, beautiful rich detailed surfaces, restrained not cartoon toy blocks, no photoreal photograph. View from the ground-floor clerical hall toward an institutional courtyard: close warm sandstone arcade and dark iron railing on the lower edge, handsome 1920s civic brick buildings left and right, central path through golden-leaved trees leading into the distance, pale blue sky beyond. Modest working district, muted sage and terracotta, sun entering from upper left, deep shaded foreground, richly painted but readable. Do not depict a capitol or central dome.",
+    "path": "game/offices/assets/views/01-courtyard.png",
+    "generation_tool": "imagegen",
+    "generation_date": "2026-11-14",
+    "generated_file": "exec-48207080-4f82-4685-9bb0-3eda0bfca707.png",
+    "approval": "pending in-game review"
+  },
+  {
+    "id": "02-garden",
+    "prompt": "Use case: stylized-concept. Asset type: high-resolution painted exterior view texture seen THROUGH an office window in a real 3D political career game. The two reference images are STYLE REFERENCES only: copy their warm sophisticated hand-painted 3D environment art direction, convincing architectural volume, soft painterly surface textures, golden afternoon light, blue-grey shaded stone, ochre foliage and cream clouds. Create a standalone seamless-looking vista with no office interior, no window frame, no room, no UI, no labels, no numbers, no border, no text, no watermark. Landscape composition 2048x1536 or higher, crisp legible architecture, atmospheric perspective with at least three depth layers, interesting varied rooflines, beautiful rich detailed surfaces, restrained not cartoon toy blocks, no photoreal photograph. View from a small local party branch: sunlit mature golden-green trees very near the window, thin twisting dark branches framing the top third, an old cream brick residential street and red-tiled roofs beyond a small walled garden. Uneven human-scale roofs and chimney details, climbing ivy, soft warm autumn daylight. Mostly foliage and sky at upper half because this texture will be seen through a high narrow window. No dome.",
+    "path": "game/offices/assets/views/02-garden.png",
+    "generation_tool": "imagegen",
+    "generation_date": "2026-11-14",
+    "generated_file": "exec-a292d860-fc69-47c1-9512-60e053f71671.png",
+    "approval": "pending in-game review"
+  },
+  {
+    "id": "03-civic-street",
+    "prompt": "Use case: stylized-concept. Asset type: high-resolution painted exterior view texture seen THROUGH an office window in a real 3D political career game. The two reference images are STYLE REFERENCES only: copy their warm sophisticated hand-painted 3D environment art direction, convincing architectural volume, soft painterly surface textures, golden afternoon light, blue-grey shaded stone, ochre foliage and cream clouds. Create a standalone seamless-looking vista with no office interior, no window frame, no room, no UI, no labels, no numbers, no border, no text, no watermark. Landscape composition 2048x1536 or higher, crisp legible architecture, atmospheric perspective with at least three depth layers, interesting varied rooflines, beautiful rich detailed surfaces, restrained not cartoon toy blocks, no photoreal photograph. Second-floor view over an elegant civic avenue: sandstone classical city hall with green copper cupola offset on the RIGHT, warm stone terraced buildings on the LEFT, two-storey leafy trees and small burgundy shop awnings below, a deep street perspective leading toward pale distant hills. Richly detailed corbels, cornices, tall blue-shadowed sash windows. Unmistakable layered spatial depth, pleasant late afternoon sun and crisp cream clouds.",
+    "path": "game/offices/assets/views/03-civic-street.png",
+    "generation_tool": "imagegen",
+    "generation_date": "2026-11-14",
+    "generated_file": "exec-1d25d75f-e2c1-4678-844c-656570403654.png",
+    "approval": "pending in-game review"
+  },
+  {
+    "id": "04-council-court",
+    "prompt": "Use case: stylized-concept. Asset type: high-resolution painted exterior view texture seen THROUGH an office window in a real 3D political career game. The two reference images are STYLE REFERENCES only: copy their warm sophisticated hand-painted 3D environment art direction, convincing architectural volume, soft painterly surface textures, golden afternoon light, blue-grey shaded stone, ochre foliage and cream clouds. Create a standalone seamless-looking vista with no office interior, no window frame, no room, no UI, no labels, no numbers, no border, no text, no watermark. Landscape composition 2048x1536 or higher, crisp legible architecture, atmospheric perspective with at least three depth layers, interesting varied rooflines, beautiful rich detailed surfaces, restrained not cartoon toy blocks, no photoreal photograph. Upper-floor view across the courtyard of a legislative council complex: elegant limestone colonnade with arched galleries to the LEFT, a square tower with copper roof in the distance off center, glass-roofed connecting gallery behind lower trees, autumn yellow plane trees, fountain and low formal garden below. Oblique architectural perspective, refined and quiet, warm cream stone with blue-green shadows, lots of layered depth. No repeated building stamps.",
+    "path": "game/offices/assets/views/04-council-court.png",
+    "generation_tool": "imagegen",
+    "generation_date": "2026-11-14",
+    "generated_file": "exec-e41fe21d-57c7-4f44-88b9-0b74108b544c.png",
+    "approval": "pending in-game review"
+  },
+  {
+    "id": "05-capital-park",
+    "prompt": "Use case: stylized-concept. Asset type: high-resolution painted exterior view texture seen THROUGH an office window in a real 3D political career game. The two reference images are STYLE REFERENCES only: copy their warm sophisticated hand-painted 3D environment art direction, convincing architectural volume, soft painterly surface textures, golden afternoon light, blue-grey shaded stone, ochre foliage and cream clouds. Create a standalone seamless-looking vista with no office interior, no window frame, no room, no UI, no labels, no numbers, no border, no text, no watermark. Landscape composition 2048x1536 or higher, crisp legible architecture, atmospheric perspective with at least three depth layers, interesting varied rooflines, beautiful rich detailed surfaces, restrained not cartoon toy blocks, no photoreal photograph. Fifth-floor view over the capital's broad treelined park and avenue, a richly ornamented art-deco civic tower offset LEFT, warm sandstone mid-rise buildings at different depths, copper roofs, distant pale blue hills. Large cream cloud banks over a blue sky and golden autumn trees in the lower third. Visually grand but entirely fictional architecture, readable rhythm of hundreds of painted windows, warm sun on left faces, dimensional shaded right faces.",
+    "path": "game/offices/assets/views/05-capital-park.png",
+    "generation_tool": "imagegen",
+    "generation_date": "2026-11-14",
+    "generated_file": "exec-ee4e147f-30b1-404a-bad0-7e7b9cc4c18a.png",
+    "approval": "pending in-game review"
+  },
+  {
+    "id": "06-river-skyline",
+    "prompt": "Use case: stylized-concept. Asset type: high-resolution painted exterior view texture seen THROUGH an office window in a real 3D political career game. The two reference images are STYLE REFERENCES only: copy their warm sophisticated hand-painted 3D environment art direction, convincing architectural volume, soft painterly surface textures, golden afternoon light, blue-grey shaded stone, ochre foliage and cream clouds. Create a standalone seamless-looking vista with no office interior, no window frame, no room, no UI, no labels, no numbers, no border, no text, no watermark. Landscape composition 2048x1536 or higher, crisp legible architecture, atmospheric perspective with at least three depth layers, interesting varied rooflines, beautiful rich detailed surfaces, restrained not cartoon toy blocks, no photoreal photograph. A panoramic corner-office view over a fictional capital at golden afternoon: a broad river bending from lower LEFT into the far distance, old stone bridges, autumn tree-lined embankments, varied elegant limestone towers and a green copper domed civic building offset RIGHT, distant architectural skyline dissolving into blue haze. The largest foreground buildings sit along the far left and right edges, leaving beautiful deep open space in the center. High quality hand-painted environment, elaborate but readable facade texture, cream clouds, no real-world landmarks.",
+    "path": "game/offices/assets/views/06-river-skyline.png",
+    "generation_tool": "imagegen",
+    "generation_date": "2026-11-14",
+    "generated_file": "exec-fd5ed839-c79c-4b4e-a877-520c3408f5f5.png",
+    "approval": "pending in-game review"
+  },
+  {
+    "id": "oak-painted",
+    "prompt": "Use case: stylized-concept. Asset type: game material albedo texture. Square 2048 by 2048, edge to edge flat seamless warm golden-brown polished oak/walnut desk wood, matching the attached painted 3D office concept art. Richly visible long flowing wood grain in horizontal direction, broad elegant wood curls and tiny irregular scratches, subtle rubbed edges are NOT wanted because this must tile across furniture. Painterly warm chestnut midtones, deep umber pores, small golden streaks, fine brushwork, convincing depth from painted grain. Flat orthographic surface only, no table geometry, no perspective, no lighting hotspot, no shadows, no borders, no objects, no collage, no text. Do not make it uniformly smooth or dark muddy; readable moderately high grain contrast at small game scale.",
+    "path": "game/offices/assets/textures/oak-painted.png",
+    "generation_tool": "imagegen",
+    "generation_date": "2026-11-14",
+    "generated_file": "exec-ae6bf32a-b846-4a3b-b3b1-9e5c030f9c39.png",
+    "approval": "pending in-game review"
+  },
+  {
+    "id": "leather-painted",
+    "prompt": "Use case: stylized-concept. Asset type: tileable albedo material texture for 3D desk blotter and chair upholstery. Square 2048 by 2048, edge-to-edge seamless warm grey/taupe aged leather, almost monochrome so the engine can tint it burgundy or deep teal. Elegant fine irregular leather pebble grain, subtle broad rubbed patina and natural wrinkles, artisanal hand-painted surface in sophisticated painted 3D concept art style. Strong enough texture to read on a game desk but no huge cracks. Flat orthographic, evenly lit material swatch, no shading gradients, no object, no seams or stitches, no border, no text, no labels.",
+    "path": "game/offices/assets/textures/leather-painted.png",
+    "generation_tool": "imagegen",
+    "generation_date": "2026-11-14",
+    "generated_file": "exec-302d9ebd-56ed-4cd6-ac27-a85de6c9452c.png",
+    "approval": "pending in-game review"
+  },
+  {
+    "id": "plaster-painted",
+    "prompt": "Use case: stylized-concept. Asset type: seamless albedo material texture for 3D office walls and plaster ceiling. Square 2048 by 2048, entire image a flat painted warm light grey-beige old plaster surface matching the attached hand-painted office game concept. Medium-size layered brush and trowel marks, irregular subtle chipped paint and tiny age cracks, broad varied matte patches, detailed fine grain, visibly painterly yet believable. Neutral almost monochrome, no green or red hue so it can be tinted by a shader. Flat orthographic, evenly lit, no perspective, no wall corners, no floor, no objects, no highlights, no shadows, no symbols, no text, no border. Suitable for seamless repeat, not a photograph.",
+    "path": "game/offices/assets/textures/plaster-painted.png",
+    "generation_tool": "imagegen",
+    "generation_date": "2026-11-14",
+    "generated_file": "exec-ec1a78b6-7680-40f3-9a2d-117f7cb2d213.png",
+    "approval": "pending in-game review"
+  }
+]

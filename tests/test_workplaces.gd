@@ -14,6 +14,8 @@ func _initialize() -> void:
 	call_deferred("run")
 
 func run() -> void:
+	# Headless windows default to 64x64 when virtual stretching is disabled.
+	root.size = Vector2i(1280,800)
 	if not FileAccess.file_exists("res://game/offices/workplace.tscn"):
 		push_error("Interactive workplaces scene does not exist yet")
 		quit(1)
@@ -55,7 +57,7 @@ func run() -> void:
 				var click := InputEventMouseButton.new()
 				click.button_index = MOUSE_BUTTON_LEFT
 				click.pressed = true
-				click.position = point
+				click.position = ui.scene_to_ui(point)
 				ui._gui_input(click)
 				check(ui.active_panel == id, "Scene click did not open %s at %s" % [id, window_size])
 				ui.close_panel()
