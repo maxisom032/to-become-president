@@ -1,0 +1,44 @@
+{
+  "tool": "imagegen",
+  "date": "2026-11-14",
+  "status": "concepts-not-implemented",
+  "method": "First image establishes composition; stages 2–6 edit that same image, preserving desk, props, door screen rectangle and UI layout.",
+  "stages": [
+    {
+      "id": "01-referent",
+      "rank": "РЕФЕРЕНТ",
+      "prompt": "Create ONE portrait mobile-game visual prototype, aspect ratio about 393:852, not a collage. A cozy achievable stylized Godot 3D office, warm painted wood and restrained textures, simple clean geometry and soft lights, not a photoreal architectural render. Use the reference board as art direction, but render ONE early-stage scene. First-person seated view of player's desk. Lock composition: exactly one wooden door, rectangle from x=44% to72% and y=30% to59% of the full image, center x58%; fully visible and unobstructed. Desk front surface occupies y64%-94%, identical level tabletop perspective to the reference. Large closed red-brown folder at x22%-67%,y73%-91%; green banker's lamp left x7%-20%, ivory corded desk phone right x75%-94%, stamp at bottom left, pencil pot near desk center-back and small blue notebook on right. All objects clearly in view, no hand or player body. Modest shared clerical office, muted sage cubicle dividers at left and right, a couple of other desks and simple office chairs, cream plaster, honey oak skirting, low simple institutional ceiling with one warm pendant. NO WINDOW anywhere. Door faces an interior corridor and is a plain human-scale2.1m door. A small cream header contains only the Russian rank title 'РЕФЕРЕНТ', a slim burgundy bottom strip with four simple unlabeled navigation icons, no other text or statistics. Calm readable composition with no excessive empty ceiling. Avoid adding a second door, mirror, framed door-like openings or busy emblems. Preserve restrained warm amber/cream/green palette and intimate comfortable desk view.",
+      "generated_file": "exec-069c8690-f257-43e6-8da6-73a414f0b72e.png"
+    },
+    {
+      "id": "02-legat",
+      "rank": "ЛЕГАТ",
+      "scene": "A slightly improved but still modest shared local branch office, muted olive striped wallpaper, fewer cubicle partitions, tidy filing cabinets and one spare visitor chair. A nicer simple green pendant light. No window anywhere, no outside view. Door remains a normal single wooden door in a slightly deeper trim frame.",
+      "generated_file": "exec-f6408f53-281e-4f20-9fe8-4c8b6d8b98c1.png"
+    },
+    {
+      "id": "03-prefect",
+      "rank": "ПРЕФЕКТ",
+      "scene": "First private regional office, warm forest-green wallpaper with a very subtle repeat pattern, honey-walnut wainscoting, one neat bookcase along left wall and two upholstered visitor chairs at the sides, a better circular cream-and-brass ceiling light. No windows anywhere. The same screen-space door is now a physically taller 2.4m panelled wooden door in a larger room, but retains EXACT same image rectangle.",
+      "generated_file": "exec-e016b34e-9bab-41ce-8ad8-446a38eec58c.png"
+    },
+    {
+      "id": "04-consul",
+      "rank": "КОНСУЛ",
+      "scene": "A visibly more spacious council office, muted dark blue wallpaper, warm walnut wainscoting, a compact side meeting table with two chairs and a bookcase at the far left, shallow decorative ceiling moulding, a restrained geometric brass-and-cream pendant fixture. No windows anywhere. Room is larger, but its physically taller wider ceremonial single door has EXACT same screen-space size and location as base. No double doors.",
+      "generated_file": "exec-e46a03e0-2aa3-42f1-b603-e06092621cb2.png"
+    },
+    {
+      "id": "05-archon",
+      "rank": "АРХОНТ",
+      "scene": "A senior corner office, deep olive-green wallpaper and walnut panels, two comfortable chairs and small coffee table in the left side lounge, refined warm art-deco ceiling lamp. Exactly ONE architectural L-shaped CORNER WINDOW at the LEFT exterior building corner: two glazed faces meet at a visible corner mullion, not two unrelated pictures, and not on same flat corridor wall as the door. A simple coherent illustrated high-floor American capital view with broad stone buildings. Room feels more spacious around the sides. Large physically taller 2.7m wooden door stays EXACT same size and position in the image. Single door, not double.",
+      "generated_file": "exec-e34e6ff9-46ef-42ba-aa8a-bcb0d218e5f7.png"
+    },
+    {
+      "id": "06-first-archon",
+      "rank": "ПЕРВЫЙ АРХОНТ",
+      "scene": "The most prestigious corner office, restrained burgundy-and-cream Art Deco wallpaper, rich dark walnut panels, built-in bookshelves to far right, a generous left lounge with a small sofa and side table, a tall warm ceiling with a sophisticated three-part cream-and-brass lantern fixture. Exactly ONE L-shaped corner window on left exterior building corner, same window screen-space footprint as Archon's office, not on flat corridor-door wall. Outside is a coherent simplified majestic American capital with a white Capitol-inspired dome and one Manhattan Art Deco tower. No repeated image fragments. Room physically larger and door physically grander at 3m, but single door holds EXACT same screen rectangle. Avoid lavish palace excess.",
+      "generated_file": "exec-f5c4cc51-44bc-498b-a121-ffd933571c0c.png"
+    }
+  ]
+}
