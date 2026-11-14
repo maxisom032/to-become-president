@@ -20,7 +20,7 @@ func run() -> void:
 	for rank_value in 6:
 		ui.select_rank(rank_value)
 		await process_frame
-		check(ui.office.windows.size() > 0, "No painted window in rank %d" % rank_value)
+		check(ui.office.windows.size() == (0 if rank_value == 0 else 1), "Wrong window count in rank %d" % rank_value)
 	ui.select_rank(2)
 	await process_frame
 	var home: Transform3D = ui.office.camera.transform
@@ -44,7 +44,7 @@ func run() -> void:
 	ui.close_panel()
 	await create_timer(0.9).timeout
 	check(ui.office.camera.transform.is_equal_approx(home), "Quick phone close interrupted camera return")
-	check(is_equal_approx(ui.office.camera.fov, ui.office.DESK_FOV), "Quick phone close left zoom stuck")
+	check(is_equal_approx(ui.office.camera.fov, ui.office.desk_fov()), "Quick phone close left zoom stuck")
 	ui.open_interaction("folder")
 	ui.select_rank(5)
 	await create_timer(1.0).timeout

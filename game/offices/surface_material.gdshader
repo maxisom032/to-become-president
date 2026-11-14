@@ -2,10 +2,13 @@ shader_type spatial;
 uniform sampler2D surface_tex : source_color, filter_linear_mipmap, repeat_enable;
 uniform vec4 tint : source_color = vec4(1.0);
 uniform int surface_kind = 0;
+uniform int wallpaper = 0;
 varying vec3 point;
+varying vec3 world_point;
 varying vec3 face_normal;
 void vertex(){
 	point = VERTEX;
+	world_point = (MODEL_MATRIX*vec4(VERTEX,1.0)).xyz;
 	face_normal = NORMAL;
 }
 void fragment(){
@@ -28,6 +31,17 @@ void fragment(){
 	}else{
 		float grain = clamp(value/(surface_kind == 0 ? 0.53 : 0.18),0.45,1.6);
 		ALBEDO = tint.rgb * mix(1.0,grain,0.7);
+		if(wallpaper>0){
+			vec2 wall_uv = n.z > n.x ? world_point.xy : world_point.zy;
+			float stripe = abs(fract(wall_uv.x*4.0)-0.5);
+			float band = 1.0-smoothstep(0.19,0.23,stripe);
+			ALBEDO *= 0.90+band*0.19;
+			if(wallpaper>=2){
+				vec2 tile=abs(fract(wall_uv*vec2(3.1,3.5))-0.5);
+				float diamond=1.0-smoothstep(0.018,0.045,abs(tile.x+tile.y*0.8-0.34));
+				ALBEDO*=1.0+diamond*0.13;
+			}
+		}
 		ROUGHNESS = surface_kind == 4 ? 0.62 : 0.88;
 		SPECULAR = surface_kind == 4 ? 0.42 : 0.18;
 	}

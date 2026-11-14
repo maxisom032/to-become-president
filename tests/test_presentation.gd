@@ -32,6 +32,9 @@ func run() -> void:
 		await settle()
 		check(ui.office.camera.transform.is_equal_approx(home), "Camera turns relative to desk at rank %d" % rank_value)
 		check(is_equal_approx(ui.office.camera.fov, fov), "Desk zoom changes with rank")
+		if rank_value == 0:
+			check(ui.office.windows.is_empty(), "Referent workspace should have no window")
+			continue
 		var vista: String = ui.office.windows[0].view_path
 		check(ui.office.windows.size()==1,"Exactly one window required")
 		var window_area: float = ui.office.windows[0].width*ui.office.windows[0].height
@@ -39,7 +42,7 @@ func run() -> void:
 		last_window_area=window_area
 		views[vista] = true
 		check(FileAccess.file_exists(vista), "Missing painted view")
-	check(views.size() == 6, "Every career workplace needs its own exterior")
+	check(views.size() == 5, "Every career workplace needs its own exterior")
 	for dims in [Vector2i(360,640), Vector2i(393,852), Vector2i(414,896), Vector2i(1280,720), Vector2i(1920,1080), Vector2i(2560,1080)]:
 		root.size = dims
 		await settle()

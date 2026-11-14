@@ -42,3 +42,5 @@ static func apply(ui: Control) -> void:
 	ui.modal_panel.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	ui.reader_scroll.custom_minimum_size.y = minf(350.0 if wide else 270.0,maxf(150.0,area.y-top-bottom-90.0))
 	ui.reader_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	if not ui.office.folder_focused and (ui.office.focus_motion == null or not ui.office.focus_motion.is_running()):
+		ui.office.camera.fov=ui.office.desk_fov()

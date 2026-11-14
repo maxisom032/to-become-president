@@ -27,7 +27,12 @@ var focus_motion: Tween
 var folder_focused := false
 var room_index := 0
 var desk_markers: Dictionary = {}
-const DESK_FOV := 46.0
+const DESK_FOV := 42.0
+
+func desk_fov() -> float:
+	var dimensions := get_viewport().get_visible_rect().size
+	var ratio := dimensions.x/maxf(dimensions.y,1.0)
+	return maxf(DESK_FOV,rad_to_deg(2.0*atan(tan(deg_to_rad(45.0)/2.0)*ratio)))
 
 func _ready() -> void:
 	camera = Camera3D.new()
@@ -36,7 +41,7 @@ func _ready() -> void:
 	camera.position = Vector3(0, 1.65, 4.1)
 	camera.look_at(Vector3(0, 1.04, -2.7))
 	camera.keep_aspect = Camera3D.KEEP_WIDTH
-	camera.fov = DESK_FOV
+	camera.fov = desk_fov()
 	camera.current = true
 	build(0)
 
@@ -49,6 +54,7 @@ func material(color: String, finish: int = -1) -> Material:
 		var painted := ShaderMaterial.new()
 		painted.shader = PaintedSurface
 		painted.set_shader_parameter("tint", Color(color))
+		painted.set_shader_parameter("wallpaper", min(room_index,3) if finish==2 else 0)
 		var kind := 1 if finish in [1,3,4] else (2 if finish == 5 else (3 if finish == 6 else (4 if finish == 7 else 0)))
 		painted.set_shader_parameter("surface_kind", kind)
 		painted.set_shader_parameter("surface_tex", WoodTexture if kind in [1,2] else (FabricTexture if kind == 3 else (LeatherTexture if kind == 4 else WallTexture)))
@@ -102,9 +108,9 @@ func build(index: int) -> void:
 	targets.clear()
 	opened = false
 	var spec: Dictionary = Catalog.ROOMS[clampi(index, 0, 5)]
-	camera.position = Vector3(0, 1.58, 4.25)
-	camera.fov = DESK_FOV
-	camera.look_at(Vector3(0, 0.99, -0.5))
+	camera.position = Vector3(0, 2.25, 4.25)
+	camera.fov = desk_fov()
+	camera.look_at(Vector3(0, 1.5, -0.5))
 	resting_camera = camera.transform
 	layout_signature = spec.layout
 	var width: float = spec.width
@@ -149,9 +155,11 @@ func build(index: int) -> void:
 	var window_sizes := [Vector2(1.35,0.78),Vector2(1.45,0.9),Vector2(2.6,1.8),Vector2(4.2,2.6),Vector2(6.0,3.2),Vector2(8.2,4.0)]
 	var window_size: Vector2 = window_sizes[index]
 	var window_x: float = [-1.4,-0.8,-1.35,-0.8,2.0,-0.7][index]
-	back_window(Vector3(window_x,1.0+window_size.y/2.0,back+0.1),window_size.x,window_size.y)
+	if index > 0:
+		back_window(Vector3(window_x,1.0+window_size.y/2.0,back+0.1),window_size.x,window_size.y)
 	DeskDetails.extras(self, Vector3(0,0,1.72), index)
 	RoomDressing.add_details(self,spec,index)
+	RoomDressing.clock(self,Vector3(door_x-0.95,2.5,back+0.23))
 	if index>=3:
 		RoomDressing.chandelier(self,Vector3(0,2.65,back+2.0),height,index)
 
@@ -161,8 +169,8 @@ func build_lighting(index: int, height: float, back: float) -> void:
 	env.background_mode = Environment.BG_COLOR
 	env.background_color = Color("#344653")
 	env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
-	env.ambient_light_color = Color("#dce4e3")
-	env.ambient_light_energy = 0.34
+	env.ambient_light_color = Color("#ffe9ca")
+	env.ambient_light_energy = 0.52
 	env.tonemap_mode = Environment.TONE_MAPPER_AGX
 	env.ssao_enabled = true
 	env.ssao_radius = 0.55
@@ -184,7 +192,7 @@ func build_lighting(index: int, height: float, back: float) -> void:
 	var desk_key := OmniLight3D.new()
 	desk_key.position=Vector3(-1.3,2.25,2.4)
 	desk_key.light_color=Color("#ffe4bd")
-	desk_key.light_energy=0.8
+	desk_key.light_energy=1.1
 	desk_key.omni_range=6.0
 	desk_key.shadow_enabled=true
 	add_child(desk_key)
@@ -209,6 +217,9 @@ func build_door(at: Vector3, wood: Material, trim: Material) -> void:
 	box(door_hinge, Vector3(0.54, 1.12, 0), Vector3(1.08, 2.24, 0.08), wood)
 	for y in [0.62, 1.65]:
 		box(door_hinge, Vector3(0.54, y, 0.052), Vector3(0.84, 0.8, 0.045), material("#73533a", 1))
+		for side in [-1,1]:
+			box(door_hinge,Vector3(0.54+side*0.4,y,0.083),Vector3(0.025,0.76,0.018),trim)
+			box(door_hinge,Vector3(0.54,y+side*0.38,0.083),Vector3(0.8,0.025,0.018),trim)
 	box(door_hinge, Vector3(0.94, 1.08, 0.1), Vector3(0.19, 0.045, 0.055), material("#c2a36c"))
 	box(door_hinge, Vector3(0.54, 1.76, 0.09), Vector3(0.56, 0.2, 0.025), material("#d4c28c"))
 	var label := Label3D.new()
@@ -246,16 +257,16 @@ func build_desk(at: Vector3, wood: Material, index: int, interactive: bool = fal
 	folder_center = at + Vector3(-0.03, 0.96, 0.14)
 	folder_hinge = DeskDetails.folder(self, folder_center)
 	target("folder", folder_center + Vector3(0,0.05,0), Vector3(0.82,0.15,0.91))
-	var phone_at := at + Vector3(-0.64, 1.005, -0.4)
+	var phone_at := at + Vector3(-0.52, 1.005, -0.4)
 	DeskDetails.phone(self, phone_at)
 	target("phone", phone_at + Vector3(0,0.06,0), Vector3(0.47,0.28,0.4))
 	var planner_at := at + Vector3(0.57, 0.99, -0.08)
 	box(self, planner_at, Vector3(0.32, 0.06, 0.28), material("#35556a"))
 	box(self, planner_at + Vector3(0, 0.035, 0), Vector3(0.27, 0.01, 0.22), material("#dfd0ae"))
 	target("agenda", planner_at + Vector3(0, 0.03, 0), Vector3(0.38, 0.16, 0.34))
-	lamp_prop(at + Vector3(0.87, 0.95, -0.4))
-	desk_markers["lamp_left"] = at+Vector3(0.64,1.36,-0.4)
-	desk_markers["lamp_right"] = at+Vector3(1.10,1.36,-0.4)
+	lamp_prop(at + Vector3(0.69, 0.95, -0.4))
+	desk_markers["lamp_left"] = at+Vector3(0.45,1.36,-0.4)
+	desk_markers["lamp_right"] = at+Vector3(0.93,1.36,-0.4)
 	desk_markers["phone_left"] = phone_at+Vector3(-0.24,0.0,0.0)
 	if index >= 4:
 		box(self, at + Vector3(-1.55, 0.84, -0.7), Vector3(0.8, 0.12, 2.1), wood)
@@ -447,4 +458,4 @@ func return_to_desk() -> void:
 	focus_motion=create_tween().set_parallel(true).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
 	focus_motion.tween_property(folder_hinge,"rotation:z",0.0,0.28)
 	focus_motion.tween_method(func(weight:float)->void: camera.transform=start.interpolate_with(resting_camera,weight),0.0,1.0,0.5).set_delay(0.18)
-	focus_motion.tween_property(camera,"fov",DESK_FOV,0.5).set_delay(0.18)
+	focus_motion.tween_property(camera,"fov",desk_fov(),0.5).set_delay(0.18)

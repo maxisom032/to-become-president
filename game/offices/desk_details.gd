@@ -127,6 +127,10 @@ static func extras(room: Node3D, desk_at: Vector3, index: int) -> void:
 		room.box(room,desk_at+Vector3(side*0.78,0.949,0.25),Vector3(0.009,0.003,1.66),brass)
 		room.box(room,desk_at+Vector3(0,0.949,0.25+side*0.82),Vector3(1.56,0.003,0.009),brass)
 	props.place(room,"books",desk_at+Vector3(-0.75,0.95,0.28),0.12,-0.1)
+	var stamp := desk_at+Vector3(-0.58,0.97,0.59)
+	room.cylinder(room,stamp,0.075,0.035,room.material("#ba9652"))
+	room.cylinder(room,stamp+Vector3(0,0.07,0),0.035,0.12,room.material("#633b28",1))
+	room.cylinder(room,stamp+Vector3(0,0.13,0),0.055,0.035,room.material("#633b28",1))
 	# Back wall relief, a practical notice board, and plants vary by rank.
 	var spec: Dictionary = Catalog.ROOMS[index]
 	var back: float = spec.back

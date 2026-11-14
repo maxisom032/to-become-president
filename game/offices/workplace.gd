@@ -104,9 +104,9 @@ func button(parent: Node, title: String, callback: Callable) -> Button:
 	item.add_theme_font_size_override("font_size", 16)
 	item.add_theme_font_override("font", preload("res://game/art/fonts/PTSerif-Regular.ttf"))
 	item.add_theme_color_override("font_color", Color("#f3e6c8"))
-	item.add_theme_stylebox_override("normal", surface("#3d5f5b", "#6c8174"))
-	item.add_theme_stylebox_override("hover", surface("#52766b"))
-	item.add_theme_stylebox_override("pressed", surface("#294843"))
+	item.add_theme_stylebox_override("normal", surface("#805546", "#6c8174"))
+	item.add_theme_stylebox_override("hover", surface("#996954"))
+	item.add_theme_stylebox_override("pressed", surface("#634035"))
 	item.pressed.connect(callback)
 	parent.add_child(item)
 	return item
@@ -119,8 +119,8 @@ func build_interface() -> void:
 	ui_theme.default_font = preload("res://game/art/fonts/PTSerif-Regular.ttf")
 	ui_theme.default_font_size = 16
 	for state in ["normal","hover","pressed","focus"]:
-		ui_theme.set_stylebox(state,"OptionButton",surface("#304742","#8c805d"))
-	ui_theme.set_color("font_color","OptionButton",Color("#f1e4c7"))
+		ui_theme.set_stylebox(state,"OptionButton",surface("#dcc596","#8c805d"))
+	ui_theme.set_color("font_color","OptionButton",Color("#392a20"))
 	hud_layer.theme = ui_theme
 	var top := PanelContainer.new()
 	hud = top
@@ -130,16 +130,16 @@ func build_interface() -> void:
 	top.offset_left = 10
 	top.offset_right = -10
 	top.offset_top = 10
-	var top_style := surface("#1f3332ed", "#9a8357")
+	var top_style := surface("#ead7adf5", "#9a8357")
 	top_style.content_margin_top = 6
 	top_style.content_margin_bottom = 6
 	top.add_theme_stylebox_override("panel", top_style)
 	var column := VBoxContainer.new()
 	column.add_theme_constant_override("separation", 5)
 	top.add_child(column)
-	header_name = text(column, profile.full_name, 18, "#f0dfba")
+	header_name = text(column, profile.full_name, 18, "#392a20")
 	location_label = text(column, "", 14, "#6c6757")
-	location_label.add_theme_color_override("font_color",Color("#c8bb99"))
+	location_label.add_theme_color_override("font_color",Color("#786044"))
 	var row := HBoxContainer.new()
 	column.add_child(row)
 	rank_select = OptionButton.new()
@@ -159,7 +159,7 @@ func build_interface() -> void:
 	column.add_child(party_select)
 	var bottom := PanelContainer.new()
 	footer = bottom
-	bottom.add_theme_stylebox_override("panel", surface("#243e3c", "#7e927e"))
+	bottom.add_theme_stylebox_override("panel", surface("#794f40", "#7e927e"))
 	hud_layer.add_child(bottom)
 	bottom.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
 	bottom.offset_left = 10

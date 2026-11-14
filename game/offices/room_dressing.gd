@@ -1,5 +1,12 @@
 extends RefCounted
 
+static func clock(room: Node3D, at: Vector3) -> void:
+	var rim=room.cylinder(room,at,0.16,0.035,room.material("#ba9652"))
+	rim.rotation.x=PI/2.0
+	room.cylinder(room,at+Vector3(0,0,0.022),0.14,0.012,room.material("#e4c894")).rotation.x=PI/2.0
+	room.box(room,at+Vector3(0.035,0.0,0.035),Vector3(0.08,0.009,0.008),room.material("#4c3523"))
+	room.box(room,at+Vector3(0,0.05,0.035),Vector3(0.009,0.1,0.008),room.material("#4c3523"))
+
 static func add_details(room: Node3D, spec: Dictionary, rank_value: int) -> void:
 	var width: float = spec.width
 	var back: float = spec.back
